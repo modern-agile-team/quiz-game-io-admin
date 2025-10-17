@@ -63,3 +63,12 @@ export const QUIZZES_MOCK_DATA: Quiz[] = [
     imageUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee',
   },
 ];
+
+export const IMAGE_GALLERY_MOCK = [
+  'https://images.unsplash.com/photo-1538485394074-75f3474c7590?q=80&w=200',
+  'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=200',
+  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=200',
+  'https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=200',
+  'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=200',
+  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=200',
+];

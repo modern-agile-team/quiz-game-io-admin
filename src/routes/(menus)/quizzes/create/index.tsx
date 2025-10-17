@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/(menus)/quizzes/create/')({
-  component: RouteComponent,
-});
+import CreateQuizzes from '@/apps/quizzes/components/CreateQuizzes.tsx';
 
-function RouteComponent() {
-  return <div>Hello "/(menus)/quizzes/create/"!</div>;
-}
+export const Route = createFileRoute('/(menus)/quizzes/create/')({
+  component: CreateQuizzes,
+});
