@@ -1,10 +1,16 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Table } from 'antd';
 import Column from 'antd/es/table/Column';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 
-import type { Quiz } from '../mock/quizzes';
-import { QUIZZES_MOCK_DATA } from '../mock/quizzes';
+import type { QuizDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import { quizQueries } from '@/shared/service/query/quiz';
+
+import { TABLE } from '../constants';
+
 export default function QuizzesTable() {
+  const { data: quizzes } = useSuspenseQuery(quizQueries.getList);
+
   return (
     <>
       <header className="p-6 border-b border-contents-200 flex justify-between items-center">
@@ -21,8 +27,17 @@ export default function QuizzesTable() {
 
       <main className="p-6">
         <section>
-          <Table<Quiz> dataSource={QUIZZES_MOCK_DATA}>
-            <Column title="ID" dataIndex="id" key="id" />
+          <Table<QuizDto>
+            dataSource={quizzes.data}
+            pagination={{
+              pageSize: TABLE.PAGE_SIZE,
+            }}
+            bordered
+            scroll={{
+              y: 120 * 3,
+            }}
+          >
+            <Column title="카테고리" dataIndex="type" key="type" />
             <Column title="질문" dataIndex="question" key="question" />
             <Column title="정답" dataIndex="answer" key="answer" />
             <Column

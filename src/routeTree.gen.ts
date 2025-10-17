@@ -14,6 +14,10 @@ import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as menusQuizzesIndexRouteImport } from './routes/(menus)/quizzes/index'
 import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
+import { Route as menusQuizzesEditIndexRouteImport } from './routes/(menus)/quizzes/edit/index'
+import { Route as menusQuizzesCreateIndexRouteImport } from './routes/(menus)/quizzes/create/index'
+import { Route as menusQuizzesIdIndexRouteImport } from './routes/(menus)/quizzes/$id/index'
+import { Route as menusQuizzesIdEditIndexRouteImport } from './routes/(menus)/quizzes/$id/edit/index'
 
 const menusRouteRoute = menusRouteRouteImport.update({
   id: '/(menus)',
@@ -38,16 +42,44 @@ const authLoginIndexRoute = authLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => authRouteRoute,
 } as any)
+const menusQuizzesEditIndexRoute = menusQuizzesEditIndexRouteImport.update({
+  id: '/quizzes/edit/',
+  path: '/quizzes/edit/',
+  getParentRoute: () => menusRouteRoute,
+} as any)
+const menusQuizzesCreateIndexRoute = menusQuizzesCreateIndexRouteImport.update({
+  id: '/quizzes/create/',
+  path: '/quizzes/create/',
+  getParentRoute: () => menusRouteRoute,
+} as any)
+const menusQuizzesIdIndexRoute = menusQuizzesIdIndexRouteImport.update({
+  id: '/quizzes/$id/',
+  path: '/quizzes/$id/',
+  getParentRoute: () => menusRouteRoute,
+} as any)
+const menusQuizzesIdEditIndexRoute = menusQuizzesIdEditIndexRouteImport.update({
+  id: '/quizzes/$id/edit/',
+  path: '/quizzes/$id/edit/',
+  getParentRoute: () => menusRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof menusRouteRouteWithChildren
   '/login': typeof authLoginIndexRoute
   '/quizzes': typeof menusQuizzesIndexRoute
+  '/quizzes/$id': typeof menusQuizzesIdIndexRoute
+  '/quizzes/create': typeof menusQuizzesCreateIndexRoute
+  '/quizzes/edit': typeof menusQuizzesEditIndexRoute
+  '/quizzes/$id/edit': typeof menusQuizzesIdEditIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof menusRouteRouteWithChildren
   '/login': typeof authLoginIndexRoute
   '/quizzes': typeof menusQuizzesIndexRoute
+  '/quizzes/$id': typeof menusQuizzesIdIndexRoute
+  '/quizzes/create': typeof menusQuizzesCreateIndexRoute
+  '/quizzes/edit': typeof menusQuizzesEditIndexRoute
+  '/quizzes/$id/edit': typeof menusQuizzesIdEditIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -56,12 +88,30 @@ export interface FileRoutesById {
   '/(menus)': typeof menusRouteRouteWithChildren
   '/(auth)/login/': typeof authLoginIndexRoute
   '/(menus)/quizzes/': typeof menusQuizzesIndexRoute
+  '/(menus)/quizzes/$id/': typeof menusQuizzesIdIndexRoute
+  '/(menus)/quizzes/create/': typeof menusQuizzesCreateIndexRoute
+  '/(menus)/quizzes/edit/': typeof menusQuizzesEditIndexRoute
+  '/(menus)/quizzes/$id/edit/': typeof menusQuizzesIdEditIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/quizzes'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/quizzes'
+    | '/quizzes/$id'
+    | '/quizzes/create'
+    | '/quizzes/edit'
+    | '/quizzes/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/quizzes'
+  to:
+    | '/'
+    | '/login'
+    | '/quizzes'
+    | '/quizzes/$id'
+    | '/quizzes/create'
+    | '/quizzes/edit'
+    | '/quizzes/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -69,6 +119,10 @@ export interface FileRouteTypes {
     | '/(menus)'
     | '/(auth)/login/'
     | '/(menus)/quizzes/'
+    | '/(menus)/quizzes/$id/'
+    | '/(menus)/quizzes/create/'
+    | '/(menus)/quizzes/edit/'
+    | '/(menus)/quizzes/$id/edit/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -114,6 +168,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginIndexRouteImport
       parentRoute: typeof authRouteRoute
     }
+    '/(menus)/quizzes/edit/': {
+      id: '/(menus)/quizzes/edit/'
+      path: '/quizzes/edit'
+      fullPath: '/quizzes/edit'
+      preLoaderRoute: typeof menusQuizzesEditIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
+    '/(menus)/quizzes/create/': {
+      id: '/(menus)/quizzes/create/'
+      path: '/quizzes/create'
+      fullPath: '/quizzes/create'
+      preLoaderRoute: typeof menusQuizzesCreateIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
+    '/(menus)/quizzes/$id/': {
+      id: '/(menus)/quizzes/$id/'
+      path: '/quizzes/$id'
+      fullPath: '/quizzes/$id'
+      preLoaderRoute: typeof menusQuizzesIdIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
+    '/(menus)/quizzes/$id/edit/': {
+      id: '/(menus)/quizzes/$id/edit/'
+      path: '/quizzes/$id/edit'
+      fullPath: '/quizzes/$id/edit'
+      preLoaderRoute: typeof menusQuizzesIdEditIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
   }
 }
 
@@ -131,10 +213,18 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 
 interface menusRouteRouteChildren {
   menusQuizzesIndexRoute: typeof menusQuizzesIndexRoute
+  menusQuizzesIdIndexRoute: typeof menusQuizzesIdIndexRoute
+  menusQuizzesCreateIndexRoute: typeof menusQuizzesCreateIndexRoute
+  menusQuizzesEditIndexRoute: typeof menusQuizzesEditIndexRoute
+  menusQuizzesIdEditIndexRoute: typeof menusQuizzesIdEditIndexRoute
 }
 
 const menusRouteRouteChildren: menusRouteRouteChildren = {
   menusQuizzesIndexRoute: menusQuizzesIndexRoute,
+  menusQuizzesIdIndexRoute: menusQuizzesIdIndexRoute,
+  menusQuizzesCreateIndexRoute: menusQuizzesCreateIndexRoute,
+  menusQuizzesEditIndexRoute: menusQuizzesEditIndexRoute,
+  menusQuizzesIdEditIndexRoute: menusQuizzesIdEditIndexRoute,
 }
 
 const menusRouteRouteWithChildren = menusRouteRoute._addFileChildren(
