@@ -9,15 +9,26 @@ interface ImageGalleryProps {
 
 const ImageDrawer: React.FC<ImageGalleryProps> = ({ onSelect }) => {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '16px',
+      }}
+    >
       {IMAGE_GALLERY_MOCK.map((imageUrl) => (
         <Image
           key={imageUrl}
           src={imageUrl}
           alt={`${imageUrl}`}
-          width={150}
-          height={150}
-          style={{ objectFit: 'cover', cursor: 'pointer' }}
+          width={200}
+          height={200}
+          style={{
+            objectFit: 'cover',
+            cursor: 'pointer',
+            border: '1px solid #999',
+            borderRadius: 16,
+          }}
           onClick={() => onSelect(imageUrl)}
           preview={false}
         />

@@ -8,32 +8,6 @@ export type Quiz = {
   imageUrl: string | null;
 };
 
-export const columns = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: '질문',
-    dataIndex: 'question',
-    key: 'question',
-  },
-  {
-    title: '정답',
-    dataIndex: 'answer',
-    key: 'answer',
-  },
-  {
-    title: '이미지',
-    dataIndex: 'image',
-    key: 'image',
-  },
-  {
-    title: '시점',
-  },
-];
-
 export const QUIZZES_MOCK_DATA: Quiz[] = [
   {
     id: 'quiz-001',
@@ -65,10 +39,6 @@ export const QUIZZES_MOCK_DATA: Quiz[] = [
 ];
 
 export const IMAGE_GALLERY_MOCK = [
-  'https://images.unsplash.com/photo-1538485394074-75f3474c7590?q=80&w=200',
-  'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=200',
-  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=200',
-  'https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=200',
-  'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=200',
-  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=200',
+  'https://dev-zoop.s3.ap-northeast-2.amazonaws.com/images/766971239455110853.png',
+  'https://dev-zoop.s3.ap-northeast-2.amazonaws.com/images/767309255440708414.webp',
 ];
