@@ -1,6 +1,7 @@
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
 
 import {
+  createNicknameSourceControllerCreateNicknameSourceAdmin,
   deleteNicknameSourceControllerDeleteNicknameSource,
   listNicknameSourcesControllerListNicknameSources,
 } from '@/lib/admins/_generated/quizzesGameIoBackend';
@@ -18,5 +19,9 @@ export const nicknameQueries = {
 
   removeNickname: mutationOptions({
     mutationFn: deleteNicknameSourceControllerDeleteNicknameSource,
+  }),
+
+  addNickname: mutationOptions({
+    mutationFn: createNicknameSourceControllerCreateNicknameSourceAdmin,
   }),
 };

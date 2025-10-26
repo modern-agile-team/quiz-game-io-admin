@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { Alert, App, Button } from 'antd';
 
 import { nicknameQueries } from '@/shared/service/query/nicknames';
@@ -53,6 +54,9 @@ export default function ActionButtons({
           선택된 닉네임 삭제
         </Button>
       )}
+      <Link to="/contents/nicknames/create">
+        <Button type="primary">닉네임 추가</Button>
+      </Link>
     </div>
   );
 }
