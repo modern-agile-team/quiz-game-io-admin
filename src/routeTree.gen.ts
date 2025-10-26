@@ -13,9 +13,10 @@ import { Route as menusRouteRouteImport } from './routes/(menus)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
-import { Route as menusContentsNicknamesRouteImport } from './routes/(menus)/contents/nicknames'
 import { Route as menusContentsQuizzesIndexRouteImport } from './routes/(menus)/contents/quizzes/index'
+import { Route as menusContentsNicknamesIndexRouteImport } from './routes/(menus)/contents/nicknames/index'
 import { Route as menusAssetsImagesIndexRouteImport } from './routes/(menus)/assets/images/index'
+import { Route as menusContentsNicknamesCreateRouteImport } from './routes/(menus)/contents/nicknames/create'
 import { Route as menusContentsQuizzesEditIndexRouteImport } from './routes/(menus)/contents/quizzes/edit/index'
 import { Route as menusContentsQuizzesCreateIndexRouteImport } from './routes/(menus)/contents/quizzes/create/index'
 import { Route as menusContentsQuizzesIdIndexRouteImport } from './routes/(menus)/contents/quizzes/$id/index'
@@ -39,15 +40,16 @@ const authLoginIndexRoute = authLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => authRouteRoute,
 } as any)
-const menusContentsNicknamesRoute = menusContentsNicknamesRouteImport.update({
-  id: '/contents/nicknames',
-  path: '/contents/nicknames',
-  getParentRoute: () => menusRouteRoute,
-} as any)
 const menusContentsQuizzesIndexRoute =
   menusContentsQuizzesIndexRouteImport.update({
     id: '/contents/quizzes/',
     path: '/contents/quizzes/',
+    getParentRoute: () => menusRouteRoute,
+  } as any)
+const menusContentsNicknamesIndexRoute =
+  menusContentsNicknamesIndexRouteImport.update({
+    id: '/contents/nicknames/',
+    path: '/contents/nicknames/',
     getParentRoute: () => menusRouteRoute,
   } as any)
 const menusAssetsImagesIndexRoute = menusAssetsImagesIndexRouteImport.update({
@@ -55,6 +57,12 @@ const menusAssetsImagesIndexRoute = menusAssetsImagesIndexRouteImport.update({
   path: '/assets/images/',
   getParentRoute: () => menusRouteRoute,
 } as any)
+const menusContentsNicknamesCreateRoute =
+  menusContentsNicknamesCreateRouteImport.update({
+    id: '/contents/nicknames/create',
+    path: '/contents/nicknames/create',
+    getParentRoute: () => menusRouteRoute,
+  } as any)
 const menusContentsQuizzesEditIndexRoute =
   menusContentsQuizzesEditIndexRouteImport.update({
     id: '/contents/quizzes/edit/',
@@ -82,9 +90,10 @@ const menusContentsQuizzesIdEditIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof menusRouteRouteWithChildren
-  '/contents/nicknames': typeof menusContentsNicknamesRoute
   '/login': typeof authLoginIndexRoute
+  '/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
   '/assets/images': typeof menusAssetsImagesIndexRoute
+  '/contents/nicknames': typeof menusContentsNicknamesIndexRoute
   '/contents/quizzes': typeof menusContentsQuizzesIndexRoute
   '/contents/quizzes/$id': typeof menusContentsQuizzesIdIndexRoute
   '/contents/quizzes/create': typeof menusContentsQuizzesCreateIndexRoute
@@ -93,9 +102,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof menusRouteRouteWithChildren
-  '/contents/nicknames': typeof menusContentsNicknamesRoute
   '/login': typeof authLoginIndexRoute
+  '/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
   '/assets/images': typeof menusAssetsImagesIndexRoute
+  '/contents/nicknames': typeof menusContentsNicknamesIndexRoute
   '/contents/quizzes': typeof menusContentsQuizzesIndexRoute
   '/contents/quizzes/$id': typeof menusContentsQuizzesIdIndexRoute
   '/contents/quizzes/create': typeof menusContentsQuizzesCreateIndexRoute
@@ -107,9 +117,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(auth)': typeof authRouteRouteWithChildren
   '/(menus)': typeof menusRouteRouteWithChildren
-  '/(menus)/contents/nicknames': typeof menusContentsNicknamesRoute
   '/(auth)/login/': typeof authLoginIndexRoute
+  '/(menus)/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
   '/(menus)/assets/images/': typeof menusAssetsImagesIndexRoute
+  '/(menus)/contents/nicknames/': typeof menusContentsNicknamesIndexRoute
   '/(menus)/contents/quizzes/': typeof menusContentsQuizzesIndexRoute
   '/(menus)/contents/quizzes/$id/': typeof menusContentsQuizzesIdIndexRoute
   '/(menus)/contents/quizzes/create/': typeof menusContentsQuizzesCreateIndexRoute
@@ -120,9 +131,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/contents/nicknames'
     | '/login'
+    | '/contents/nicknames/create'
     | '/assets/images'
+    | '/contents/nicknames'
     | '/contents/quizzes'
     | '/contents/quizzes/$id'
     | '/contents/quizzes/create'
@@ -131,9 +143,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/contents/nicknames'
     | '/login'
+    | '/contents/nicknames/create'
     | '/assets/images'
+    | '/contents/nicknames'
     | '/contents/quizzes'
     | '/contents/quizzes/$id'
     | '/contents/quizzes/create'
@@ -144,9 +157,10 @@ export interface FileRouteTypes {
     | '/'
     | '/(auth)'
     | '/(menus)'
-    | '/(menus)/contents/nicknames'
     | '/(auth)/login/'
+    | '/(menus)/contents/nicknames/create'
     | '/(menus)/assets/images/'
+    | '/(menus)/contents/nicknames/'
     | '/(menus)/contents/quizzes/'
     | '/(menus)/contents/quizzes/$id/'
     | '/(menus)/contents/quizzes/create/'
@@ -190,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginIndexRouteImport
       parentRoute: typeof authRouteRoute
     }
-    '/(menus)/contents/nicknames': {
-      id: '/(menus)/contents/nicknames'
-      path: '/contents/nicknames'
-      fullPath: '/contents/nicknames'
-      preLoaderRoute: typeof menusContentsNicknamesRouteImport
-      parentRoute: typeof menusRouteRoute
-    }
     '/(menus)/contents/quizzes/': {
       id: '/(menus)/contents/quizzes/'
       path: '/contents/quizzes'
@@ -204,11 +211,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof menusContentsQuizzesIndexRouteImport
       parentRoute: typeof menusRouteRoute
     }
+    '/(menus)/contents/nicknames/': {
+      id: '/(menus)/contents/nicknames/'
+      path: '/contents/nicknames'
+      fullPath: '/contents/nicknames'
+      preLoaderRoute: typeof menusContentsNicknamesIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
     '/(menus)/assets/images/': {
       id: '/(menus)/assets/images/'
       path: '/assets/images'
       fullPath: '/assets/images'
       preLoaderRoute: typeof menusAssetsImagesIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
+    '/(menus)/contents/nicknames/create': {
+      id: '/(menus)/contents/nicknames/create'
+      path: '/contents/nicknames/create'
+      fullPath: '/contents/nicknames/create'
+      preLoaderRoute: typeof menusContentsNicknamesCreateRouteImport
       parentRoute: typeof menusRouteRoute
     }
     '/(menus)/contents/quizzes/edit/': {
@@ -255,8 +276,9 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 )
 
 interface menusRouteRouteChildren {
-  menusContentsNicknamesRoute: typeof menusContentsNicknamesRoute
+  menusContentsNicknamesCreateRoute: typeof menusContentsNicknamesCreateRoute
   menusAssetsImagesIndexRoute: typeof menusAssetsImagesIndexRoute
+  menusContentsNicknamesIndexRoute: typeof menusContentsNicknamesIndexRoute
   menusContentsQuizzesIndexRoute: typeof menusContentsQuizzesIndexRoute
   menusContentsQuizzesIdIndexRoute: typeof menusContentsQuizzesIdIndexRoute
   menusContentsQuizzesCreateIndexRoute: typeof menusContentsQuizzesCreateIndexRoute
@@ -265,8 +287,9 @@ interface menusRouteRouteChildren {
 }
 
 const menusRouteRouteChildren: menusRouteRouteChildren = {
-  menusContentsNicknamesRoute: menusContentsNicknamesRoute,
+  menusContentsNicknamesCreateRoute: menusContentsNicknamesCreateRoute,
   menusAssetsImagesIndexRoute: menusAssetsImagesIndexRoute,
+  menusContentsNicknamesIndexRoute: menusContentsNicknamesIndexRoute,
   menusContentsQuizzesIndexRoute: menusContentsQuizzesIndexRoute,
   menusContentsQuizzesIdIndexRoute: menusContentsQuizzesIdIndexRoute,
   menusContentsQuizzesCreateIndexRoute: menusContentsQuizzesCreateIndexRoute,
