@@ -5,6 +5,7 @@ import { overlay } from 'overlay-kit';
 import { imageQueries } from '@/shared/service/query/image';
 
 import ImageUploadModal from './ImageUploadModal';
+import type { UploadData } from './schema';
 
 interface Props {
   selectedImageIds: string[];
@@ -78,15 +79,16 @@ export default function ActionButtons({
         loading={isUploading}
         disabled={isUploading}
         onClick={async () => {
-          const fileList = await overlay.openAsync<File[] | null>(
+          const uploadData = await overlay.openAsync<UploadData | null>(
             ({ close, isOpen }) => (
               <ImageUploadModal isOpen={isOpen} onClose={close} />
             )
           );
 
-          if (fileList) {
+          if (uploadData) {
+            const { fileList, category } = uploadData;
             fileList.forEach((file) => {
-              uploadImage({ file, category: '테스트' });
+              uploadImage({ file, category });
             });
           }
         }}
