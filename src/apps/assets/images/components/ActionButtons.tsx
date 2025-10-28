@@ -6,6 +6,11 @@ import { imageQueries } from '@/shared/service/query/image';
 
 import ImageUploadModal from './ImageUploadModal';
 
+interface UploadData {
+  files: File[];
+  category: string;
+}
+
 interface Props {
   selectedImageIds: string[];
   onRemoveImages: () => void;
@@ -78,15 +83,16 @@ export default function ActionButtons({
         loading={isUploading}
         disabled={isUploading}
         onClick={async () => {
-          const fileList = await overlay.openAsync<File[] | null>(
+          const uploadData = await overlay.openAsync<UploadData | null>(
             ({ close, isOpen }) => (
               <ImageUploadModal isOpen={isOpen} onClose={close} />
             )
           );
 
-          if (fileList) {
-            fileList.forEach((file) => {
-              uploadImage({ file, category: '테스트' });
+          if (uploadData) {
+            const { files, category } = uploadData;
+            files.forEach((file) => {
+              uploadImage({ file, category });
             });
           }
         }}
