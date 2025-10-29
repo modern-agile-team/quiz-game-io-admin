@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { Image, Table } from 'antd';
+import { Image, Table, Typography } from 'antd';
 import Column from 'antd/es/table/Column';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 
@@ -15,16 +15,18 @@ export default function QuizzesTable() {
 
   return (
     <>
-      <header className="p-6 border-b border-contents-200 flex justify-between items-center">
-        <div>
-          <h1 className="text-title-2 font-bold">퀴즈 목록</h1>
-          <p className="text-contents-600 mt-1">
+      <header className="border-b border-contents-200 flex justify-between items-center">
+        <Typography>
+          <Typography.Title className="text-title-2 font-bold">
+            퀴즈 목록
+          </Typography.Title>
+          <Typography.Paragraph className="text-contents-600 mt-1">
             셀을 클릭하면 상세 정보 확인이 가능합니다.
-          </p>
-        </div>
+          </Typography.Paragraph>
+        </Typography>
       </header>
 
-      <main className="p-6">
+      <main className="p-3">
         <section>
           <Table<QuizDto>
             dataSource={quizzes.data}
@@ -33,7 +35,7 @@ export default function QuizzesTable() {
             }}
             bordered
             scroll={{
-              y: 120 * 3,
+              y: '70vh',
             }}
             onRow={(record) => {
               return {

@@ -1,22 +1,53 @@
 import { PlusOutlined } from '@ant-design/icons';
-import type { UploadFile, UploadProps } from 'antd';
-import { Modal, Upload } from 'antd';
-import { useState } from 'react';
+import type { UploadFile } from 'antd';
+import { Form, Input, Modal, Upload } from 'antd';
 
-interface Props {
-  isOpen: boolean;
-  onClose: (fileList: File[] | null) => void;
+interface FormValues {
+  fileList: UploadFile[];
+  category: string;
 }
 
-export default function ImageUploadModal({
-  isOpen,
+interface UploadData {
+  fileList: File[];
+  category: string;
+}
+interface Props {
+  isOpen: boolean;
+  onClose: (data: UploadData | null) => void;
+}
 
-  onClose,
-}: Props) {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+export default function ImageUploadModal({ isOpen, onClose }: Props) {
+  const [form] = Form.useForm<FormValues>();
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  const handleOk = async () => {
+    try {
+      await form.validateFields();
+    } catch {
+      return;
+    }
+
+    const { fileList, category } = form.getFieldsValue();
+
+    if (confirm('이미지를 업로드 하시겠습니까?')) {
+      onClose({
+        fileList: fileList.map(
+          (file: UploadFile) => file.originFileObj as File
+        ),
+        category,
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    const fileList = form.getFieldValue('fileList') || [];
+    if (fileList.length > 0) {
+      if (
+        !confirm('업로드하지 않은 이미지가 있습니다. 모달을 닫으시겠습니까?')
+      ) {
+        return;
+      }
+    }
+    onClose(null);
   };
 
   return (
@@ -25,40 +56,45 @@ export default function ImageUploadModal({
       open={isOpen}
       okText="업로드"
       cancelText="취소"
-      onOk={() => {
-        if (fileList.length === 0) {
-          onClose(null);
-          return;
-        }
-
-        const ok = confirm('이미지를 업로드 하시겠습니까?');
-        if (ok) {
-          onClose(fileList.map((file) => file.originFileObj as File));
-        }
-      }}
-      onCancel={() => {
-        if (fileList.length > 0) {
-          const ok = confirm(
-            '업로드하지 않은 이미지가 있습니다. 모달을 닫으시겠습니까?'
-          );
-          if (!ok) {
-            return;
-          }
-        }
-        onClose(null);
-      }}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      destroyOnClose
     >
-      <Upload
-        multiple
-        fileList={fileList}
-        beforeUpload={() => false}
-        accept="image/*"
-        listType="picture-card"
-        onChange={handleChange}
-        className="max-h-[600px] overflow-y-auto"
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={{ category: '', fileList: [] }}
       >
-        <PlusOutlined />
-      </Upload>
+        <Form.Item
+          name="category"
+          label="카테고리"
+          rules={[{ required: true, message: '카테고리 선택은 필수입니다.' }]}
+        >
+          <Input placeholder="예: 워크샵, 제품 사진 등" />
+        </Form.Item>
+
+        <Form.Item
+          name="fileList"
+          valuePropName="fileList"
+          getValueFromEvent={(e) => e.fileList}
+          rules={[
+            {
+              required: true,
+              message: '업로드할 이미지를 하나 이상 선택해주세요.',
+            },
+          ]}
+        >
+          <Upload
+            multiple
+            beforeUpload={() => false}
+            accept="image/*"
+            listType="picture-card"
+            className="max-h-[500px] overflow-y-auto"
+          >
+            <PlusOutlined />
+          </Upload>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 }
