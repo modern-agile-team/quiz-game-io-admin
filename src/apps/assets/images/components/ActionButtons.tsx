@@ -5,11 +5,7 @@ import { overlay } from 'overlay-kit';
 import { imageQueries } from '@/shared/service/query/image';
 
 import ImageUploadModal from './ImageUploadModal';
-
-interface UploadData {
-  files: File[];
-  category: string;
-}
+import type { UploadData } from './schema';
 
 interface Props {
   selectedImageIds: string[];
@@ -90,8 +86,8 @@ export default function ActionButtons({
           );
 
           if (uploadData) {
-            const { files, category } = uploadData;
-            files.forEach((file) => {
+            const { fileList, category } = uploadData;
+            fileList.forEach((file) => {
               uploadImage({ file, category });
             });
           }
