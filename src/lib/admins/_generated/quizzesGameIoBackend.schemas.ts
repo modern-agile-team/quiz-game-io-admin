@@ -149,7 +149,7 @@ export interface CreateQuizzesDto {
   /** @nullable */
   question: string | null;
   /** @nullable */
-  imageUrl: string | null;
+  imageFileName: string | null;
 }
 
 export interface QuizDto {
@@ -165,6 +165,11 @@ export interface QuizDto {
   question: string | null;
   /** 퀴즈 정답 */
   answer: string;
+  /**
+   * 퀴즈 이미지 파일명
+   * @nullable
+   */
+  imageFileName: string | null;
   /**
    * 퀴즈 이미지 URL
    * @nullable
@@ -182,7 +187,7 @@ export interface UpdateQuizDto {
   /** @nullable */
   question?: string | null;
   /** @nullable */
-  imageUrl?: string | null;
+  imageFileName?: string | null;
 }
 
 export interface CreateQuizImageDto {
@@ -201,6 +206,7 @@ export interface QuizImageDto {
   category: string;
   name: string;
   originalFileName: string;
+  quizImageFileName: string;
   quizImageUrl: string;
   extension: string;
   contentType: string;
@@ -1200,6 +1206,26 @@ export type DeleteQuizImageControllerDeleteQuizImage404 = {
   message?: string;
   /** error code */
   code?: DeleteQuizImageControllerDeleteQuizImage404Code;
+};
+
+/**
+ * error code
+ */
+export type DeleteQuizImageControllerDeleteQuizImage409Code = typeof DeleteQuizImageControllerDeleteQuizImage409Code[keyof typeof DeleteQuizImageControllerDeleteQuizImage409Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteQuizImageControllerDeleteQuizImage409Code = {
+  QUIZ_IMAGEIN_USED: 'QUIZ_IMAGE.IN_USED',
+} as const;
+
+export type DeleteQuizImageControllerDeleteQuizImage409 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: DeleteQuizImageControllerDeleteQuizImage409Code;
 };
 
 /**

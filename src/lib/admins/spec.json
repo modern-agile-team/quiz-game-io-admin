@@ -1803,6 +1803,34 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "QUIZ_IMAGE.IN_USED",
+                      "enum": [
+                        "QUIZ_IMAGE.IN_USED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2511,7 +2539,7 @@
             "type": "string",
             "nullable": true
           },
-          "imageUrl": {
+          "imageFileName": {
             "type": "string",
             "nullable": true
           }
@@ -2520,7 +2548,7 @@
           "type",
           "answer",
           "question",
-          "imageUrl"
+          "imageFileName"
         ]
       },
       "QuizDto": {
@@ -2553,6 +2581,11 @@
             "description": "퀴즈 정답",
             "example": "정답"
           },
+          "imageFileName": {
+            "type": "string",
+            "description": "퀴즈 이미지 파일명",
+            "nullable": true
+          },
           "imageUrl": {
             "type": "string",
             "description": "퀴즈 이미지 URL",
@@ -2567,6 +2600,7 @@
           "type",
           "question",
           "answer",
+          "imageFileName",
           "imageUrl"
         ]
       },
@@ -2597,7 +2631,7 @@
             "type": "string",
             "nullable": true
           },
-          "imageUrl": {
+          "imageFileName": {
             "type": "string",
             "nullable": true
           }
@@ -2649,6 +2683,9 @@
           "originalFileName": {
             "type": "string"
           },
+          "quizImageFileName": {
+            "type": "string"
+          },
           "quizImageUrl": {
             "type": "string"
           },
@@ -2675,6 +2712,7 @@
           "category",
           "name",
           "originalFileName",
+          "quizImageFileName",
           "quizImageUrl",
           "extension",
           "contentType",
