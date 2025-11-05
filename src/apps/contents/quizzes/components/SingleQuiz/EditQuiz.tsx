@@ -99,8 +99,8 @@ export default function EditQuiz() {
       title: '이미지 선택',
       content: (
         <ImageModal
-          onSelect={(imageUrl) => {
-            form.setFieldsValue({ imageUrl });
+          onSelect={(imageFileName) => {
+            form.setFieldsValue({ imageFileName });
             setFormIsDirty(true);
             modalInstance.destroy();
           }}

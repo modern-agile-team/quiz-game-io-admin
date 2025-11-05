@@ -43,7 +43,7 @@ export default function CreateQuizzes() {
       type: '',
       question: '',
       answer: '',
-      imageUrl: '',
+      imageFileName: '',
     };
     form.setFieldsValue({ dataSource: [...quizFormValues, newData] });
     setFormIsDirty(true);
@@ -73,7 +73,7 @@ export default function CreateQuizzes() {
       content: (
         <ImageModal
           onSelect={(imageUrl) => {
-            handleSave(recordKey, 'imageUrl', imageUrl);
+            handleSave(recordKey, 'imageFileName', imageUrl);
             modalInstance.destroy();
           }}
         />
@@ -156,7 +156,7 @@ export default function CreateQuizzes() {
     },
     {
       title: '이미지',
-      dataIndex: 'imageUrl',
+      dataIndex: 'imageFileName',
       width: '10%',
       render: (imageUrl: string, record: CreateQuizDto) => (
         <>

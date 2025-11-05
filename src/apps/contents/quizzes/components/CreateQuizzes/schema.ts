@@ -1,7 +1,5 @@
-export interface CreateQuizDto {
+import type { CreateQuizzesDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+
+export interface CreateQuizDto extends CreateQuizzesDto {
   key: string;
-  type: string;
-  question: string;
-  answer: string;
-  imageUrl: string;
 }
