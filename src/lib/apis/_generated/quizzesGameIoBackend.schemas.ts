@@ -149,7 +149,7 @@ export interface CreateQuizzesDto {
   /** @nullable */
   question: string | null;
   /** @nullable */
-  imageUrl: string | null;
+  imageFileName: string | null;
 }
 
 export interface QuizDto {
@@ -165,6 +165,11 @@ export interface QuizDto {
   question: string | null;
   /** 퀴즈 정답 */
   answer: string;
+  /**
+   * 퀴즈 이미지 파일명
+   * @nullable
+   */
+  imageFileName: string | null;
   /**
    * 퀴즈 이미지 URL
    * @nullable
@@ -182,7 +187,7 @@ export interface UpdateQuizDto {
   /** @nullable */
   question?: string | null;
   /** @nullable */
-  imageUrl?: string | null;
+  imageFileName?: string | null;
 }
 
 export interface CreateQuizImageDto {
@@ -201,6 +206,7 @@ export interface QuizImageDto {
   category: string;
   name: string;
   originalFileName: string;
+  quizImageFileName: string;
   quizImageUrl: string;
   extension: string;
   contentType: string;

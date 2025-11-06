@@ -20,7 +20,7 @@ const SelectBox = ({
 }: Omit<EditableCellProps, 'children' | 'inputType' | 'rowIndex'>) => (
   <Select
     autoFocus
-    defaultValue={record[dataIndex]}
+    defaultValue={record[dataIndex] ?? undefined}
     style={{ width: '100%', minWidth: '120px' }}
     onChange={(value) => onSave(record.key, dataIndex, value)}
     options={[
@@ -38,7 +38,7 @@ const TextBox = ({
   onSave,
 }: Omit<EditableCellProps, 'children' | 'inputType' | 'rowIndex'>) => (
   <TextArea
-    defaultValue={record[dataIndex]}
+    defaultValue={record[dataIndex] ?? undefined}
     autoFocus
     autoSize
     onPressEnter={(e) =>
