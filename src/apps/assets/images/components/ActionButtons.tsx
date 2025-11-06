@@ -1,5 +1,7 @@
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Alert, App, Button } from 'antd';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { Alert, App, Button, Select } from 'antd';
 import { overlay } from 'overlay-kit';
 
 import { imageQueries } from '@/shared/service/query/image';
@@ -18,6 +20,11 @@ export default function ActionButtons({
 }: Props) {
   const queryClient = useQueryClient();
   const { message, modal } = App.useApp();
+
+  const { page, field, sort } = useSearch({
+    from: '/(menus)/assets/images/',
+  });
+  const navigate = useNavigate({ from: '/assets/images' });
 
   const { mutate: uploadImage, isPending: isUploading } = useMutation({
     ...imageQueries.uploadImage,
@@ -67,34 +74,61 @@ export default function ActionButtons({
     }
   };
 
+  const handleSelectSortField = (value: string) => {
+    navigate({ search: { page, field: value, sort } });
+  };
+
+  const handleToggleSortType = (type: 'asc' | 'desc') => {
+    navigate({ search: { page, field, sort: type } });
+  };
+
   return (
-    <div className="flex gap-4 self-end">
-      {selectedImageIds.length > 0 && (
-        <Button danger onClick={handleRemoveImages}>
-          선택된 이미지 삭제
+    <div className="flex gap-4 justify-between">
+      <div className="flex gap-1">
+        <Select
+          value={field ?? undefined}
+          style={{ width: 120 }}
+          options={[
+            { value: 'createdAt', label: '생성 날짜' },
+            { value: 'updatedAt', label: '수정 날짜' },
+            { value: 'name', label: '이름' },
+            { value: 'category', label: '카테고리' },
+          ]}
+          onChange={handleSelectSortField}
+        />
+        <Button
+          onClick={() => handleToggleSortType(sort === 'desc' ? 'asc' : 'desc')}
+        >
+          {sort === 'desc' ? <CaretUpOutlined /> : <CaretDownOutlined />}
         </Button>
-      )}
+      </div>
+      <div>
+        {selectedImageIds.length > 0 && (
+          <Button danger onClick={handleRemoveImages}>
+            선택된 이미지 삭제
+          </Button>
+        )}
+        <Button
+          loading={isUploading}
+          disabled={isUploading}
+          onClick={async () => {
+            const uploadData = await overlay.openAsync<UploadData | null>(
+              ({ close, isOpen }) => (
+                <ImageUploadModal isOpen={isOpen} onClose={close} />
+              )
+            );
 
-      <Button
-        loading={isUploading}
-        disabled={isUploading}
-        onClick={async () => {
-          const uploadData = await overlay.openAsync<UploadData | null>(
-            ({ close, isOpen }) => (
-              <ImageUploadModal isOpen={isOpen} onClose={close} />
-            )
-          );
-
-          if (uploadData) {
-            const { fileList, category } = uploadData;
-            fileList.forEach((file) => {
-              uploadImage({ file, category });
-            });
-          }
-        }}
-      >
-        이미지 업로드
-      </Button>
+            if (uploadData) {
+              const { fileList, category } = uploadData;
+              fileList.forEach((file) => {
+                uploadImage({ file, category });
+              });
+            }
+          }}
+        >
+          이미지 업로드
+        </Button>
+      </div>
     </div>
   );
 }
