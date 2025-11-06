@@ -5,12 +5,10 @@ import QuizzesTable from './components/QuizzesTable';
 
 export default function QuizListPage() {
   return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto rounded-lg shadow-lg overflow-hidden">
-        <Suspense fallback={<Spin />}>
-          <QuizzesTable />
-        </Suspense>
-      </div>
+    <div className="min-h-screen">
+      <Suspense fallback={<Spin />}>
+        <QuizzesTable />
+      </Suspense>
     </div>
   );
 }
