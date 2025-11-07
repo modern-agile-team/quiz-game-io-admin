@@ -45,7 +45,13 @@ const PAGE_SIZE = 30;
 
 export default function ImageAssetPage() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const currentPage = useSearch({ from: '/(menus)/assets/images/' }).page;
+  const {
+    page: currentPage,
+    sortBy,
+    orderBy,
+  } = useSearch({
+    from: '/(menus)/assets/images/',
+  });
   const navigate = useNavigate({ from: '/assets/images' });
 
   const { data, isLoading, refetch } = useQuery({
@@ -53,6 +59,7 @@ export default function ImageAssetPage() {
       category: undefined,
       page: currentPage,
       perPage: PAGE_SIZE,
+      sort: `${sortBy}:${orderBy}`,
     }),
     select: (res) => {
       return {
@@ -65,7 +72,6 @@ export default function ImageAssetPage() {
   return (
     <div className="flex flex-col gap-4">
       <Typography.Title level={2}>이미지 관리</Typography.Title>
-
       <ActionButtons
         selectedImageIds={selectedRowKeys.map((key) => key.toString())}
         onRemoveImages={() => {
@@ -92,7 +98,7 @@ export default function ImageAssetPage() {
           showTotal: (total, range) =>
             `총 ${total.toLocaleString()}개 중 ${range[0]}-${range[1]}`,
           onChange(page) {
-            navigate({ search: { page } });
+            navigate({ search: { page, sortBy, orderBy } });
           },
         }}
       />
