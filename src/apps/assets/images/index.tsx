@@ -47,8 +47,8 @@ export default function ImageAssetPage() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const {
     page: currentPage,
-    field,
-    sort,
+    sortBy,
+    orderBy,
   } = useSearch({
     from: '/(menus)/assets/images/',
   });
@@ -59,7 +59,7 @@ export default function ImageAssetPage() {
       category: undefined,
       page: currentPage,
       perPage: PAGE_SIZE,
-      sort: `${field}:${sort}`,
+      sort: `${sortBy}:${orderBy}`,
     }),
     select: (res) => {
       return {
@@ -98,7 +98,7 @@ export default function ImageAssetPage() {
           showTotal: (total, range) =>
             `총 ${total.toLocaleString()}개 중 ${range[0]}-${range[1]}`,
           onChange(page) {
-            navigate({ search: { page, field, sort } });
+            navigate({ search: { page, sortBy, orderBy } });
           },
         }}
       />

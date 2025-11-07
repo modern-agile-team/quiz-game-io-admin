@@ -21,7 +21,7 @@ export default function ActionButtons({
   const queryClient = useQueryClient();
   const { message, modal } = App.useApp();
 
-  const { page, field, sort } = useSearch({
+  const { page, sortBy, orderBy } = useSearch({
     from: '/(menus)/assets/images/',
   });
   const navigate = useNavigate({ from: '/assets/images' });
@@ -75,18 +75,18 @@ export default function ActionButtons({
   };
 
   const handleSelectSortField = (value: string) => {
-    navigate({ search: { page, field: value, sort } });
+    navigate({ search: { page, sortBy: value, orderBy } });
   };
 
   const handleToggleSortType = (type: 'asc' | 'desc') => {
-    navigate({ search: { page, field, sort: type } });
+    navigate({ search: { page, sortBy, orderBy: type } });
   };
 
   return (
     <div className="flex gap-4 justify-between">
       <div className="flex gap-1">
         <Select
-          value={field ?? undefined}
+          value={sortBy ?? undefined}
           style={{ width: 120 }}
           options={[
             { value: 'createdAt', label: '생성 날짜' },
@@ -97,9 +97,11 @@ export default function ActionButtons({
           onChange={handleSelectSortField}
         />
         <Button
-          onClick={() => handleToggleSortType(sort === 'desc' ? 'asc' : 'desc')}
+          onClick={() =>
+            handleToggleSortType(orderBy === 'desc' ? 'asc' : 'desc')
+          }
         >
-          {sort === 'desc' ? <CaretUpOutlined /> : <CaretDownOutlined />}
+          {orderBy === 'desc' ? <CaretUpOutlined /> : <CaretDownOutlined />}
         </Button>
       </div>
       <div>

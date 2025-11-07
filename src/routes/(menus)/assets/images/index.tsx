@@ -5,8 +5,8 @@ import ImageAssetPage from '@/apps/assets/images';
 
 const searchParamsSchema = z.object({
   page: z.number().min(1).default(1),
-  field: z.string(),
-  sort: z.string(),
+  sortBy: z.string(),
+  orderBy: z.enum(['asc', 'desc']),
 });
 
 export const Route = createFileRoute('/(menus)/assets/images/')({
@@ -14,7 +14,7 @@ export const Route = createFileRoute('/(menus)/assets/images/')({
   validateSearch: (search) => {
     const result = searchParamsSchema.safeParse(search);
     if (!result.success) {
-      return { page: 1, field: 'createdAt', sort: 'asc' };
+      return { page: 1, sortBy: 'createdAt', orderBy: 'asc' };
     }
     return result.data;
   },
