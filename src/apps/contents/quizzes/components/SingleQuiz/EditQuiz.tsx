@@ -14,6 +14,7 @@ import {
   Select,
   Skeleton,
   Space,
+  Typography,
 } from 'antd';
 import useApp from 'antd/es/app/useApp';
 import Input from 'antd/es/input/Input';
@@ -28,10 +29,14 @@ import { quizQueries } from '@/shared/service/query/quiz';
 
 import ImageModal from '../ImageModal';
 
+interface UpdateQuiz extends UpdateQuizDto {
+  quizImageUrl?: string | null;
+}
+
 export default function EditQuiz() {
   const router = useRouter();
   const navigate = useNavigate();
-  const [form] = Form.useForm<UpdateQuizDto>();
+  const [form] = Form.useForm<UpdateQuiz>();
   const { message, modal } = useApp();
   const [formIsDirty, setFormIsDirty] = useState(false);
 
@@ -73,7 +78,6 @@ export default function EditQuiz() {
       message.error('퀴즈 수정에 실패했습니다.');
     },
   });
-
   const { mutate: deleteQuiz } = useMutation({
     ...quizQueries.singleDelete,
     onSuccess: () => {
@@ -89,9 +93,15 @@ export default function EditQuiz() {
     },
   });
 
-  const onFinish = (values: UpdateQuizDto) => {
+  const onFinish = (values: UpdateQuiz) => {
+    const updateQuizDto: UpdateQuizDto = {
+      answer: values.answer,
+      question: values.question,
+      type: values.type,
+      imageFileName: values.imageFileName,
+    };
     setFormIsDirty(false);
-    updateQuiz({ quizId, updateQuizDto: values });
+    updateQuiz({ quizId, updateQuizDto });
   };
 
   const showImagesModal = () => {
@@ -99,8 +109,8 @@ export default function EditQuiz() {
       title: '이미지 선택',
       content: (
         <ImageModal
-          onSelect={(imageFileName) => {
-            form.setFieldsValue({ imageFileName });
+          onSelect={({ quizImageUrl }) => {
+            form.setFieldsValue({ quizImageUrl });
             setFormIsDirty(true);
             modalInstance.destroy();
           }}
@@ -113,7 +123,7 @@ export default function EditQuiz() {
     });
   };
 
-  const imageUrlValue = Form.useWatch('imageUrl', form);
+  const imageUrlValue = Form.useWatch('quizImageUrl', form);
 
   if (isLoading) {
     return (
@@ -138,7 +148,7 @@ export default function EditQuiz() {
 
   return (
     <div className="p-6 min-h-screen">
-      <Form<UpdateQuizDto>
+      <Form<UpdateQuiz>
         form={form}
         layout="vertical"
         onFinish={onFinish}
@@ -170,15 +180,25 @@ export default function EditQuiz() {
           }
         >
           <div className="flex flex-col md:flex-row gap-8">
-            <Form.Item name="imageUrl" className="flex-shrink-0 text-center">
+            <Form.Item
+              name="quizImageUrl"
+              className="flex-shrink-0 text-center"
+            >
               <Space direction="vertical">
                 {imageUrlValue ? (
-                  <Image
-                    width={250}
-                    src={imageUrlValue}
-                    alt="퀴즈 이미지"
-                    className="rounded-lg shadow-sm"
-                  />
+                  <div className="flex flex-col">
+                    <Image
+                      width={250}
+                      src={imageUrlValue}
+                      alt="퀴즈 이미지"
+                      className="rounded-lg shadow-sm"
+                    />
+                    <Form.Item name="imageFileName">
+                      <Typography className="w-48 truncate text-ellipsis">
+                        {quiz.imageFileName}
+                      </Typography>
+                    </Form.Item>
+                  </div>
                 ) : (
                   <div
                     className="w-[250px] h-[150px] bg-gray-200 rounded-lg flex items-center justify-center"
