@@ -29,7 +29,7 @@ export default function CreateQuizzes() {
     },
   });
 
-  const quizFormValues = Form.useWatch([], form)?.dataSource || [];
+  const quizFormValues = Form.useWatch('dataSource', form) || [];
 
   const handleDelete = (key: React.Key) => {
     const newData = quizFormValues.filter((quiz) => quiz.key !== key);
@@ -43,6 +43,7 @@ export default function CreateQuizzes() {
       type: '',
       question: '',
       answer: '',
+      quizImageUrl: '',
       imageFileName: '',
     };
     form.setFieldsValue({ dataSource: [...quizFormValues, newData] });
@@ -54,15 +55,20 @@ export default function CreateQuizzes() {
     dataIndex: keyof CreateQuizDto,
     value: unknown
   ) => {
-    const newData = [...quizFormValues];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      newData.splice(index, 1, {
+    handleUpdateRow(key, { [dataIndex]: value } as Partial<CreateQuizDto>);
+  };
+
+  const handleUpdateRow = (key: string, changes: Partial<CreateQuizDto>) => {
+    const current = (form.getFieldValue('dataSource') as CreateQuizDto[]) || [];
+    const idx = current.findIndex((it) => String(it.key) === String(key));
+    if (idx > -1) {
+      const item = current[idx];
+      const next = [...current];
+      next.splice(idx, 1, {
         ...item,
-        [dataIndex]: value,
+        ...changes,
       });
-      form.setFieldsValue({ dataSource: newData });
+      form.setFieldsValue({ dataSource: next });
       setFormIsDirty(true);
     }
   };
@@ -72,8 +78,11 @@ export default function CreateQuizzes() {
       title: '이미지 선택',
       content: (
         <ImageModal
-          onSelect={(imageUrl) => {
-            handleSave(recordKey, 'imageFileName', imageUrl);
+          onSelect={(image) => {
+            handleUpdateRow(recordKey, {
+              quizImageUrl: image.quizImageUrl,
+              imageFileName: image.quizImageFileName,
+            });
             modalInstance.destroy();
           }}
         />
@@ -90,7 +99,9 @@ export default function CreateQuizzes() {
   const handleBulkUpload = async () => {
     setFormIsDirty(false);
     const tableValues = await form.validateFields();
-    const dataToSave = tableValues.dataSource.map(({ key, ...rest }) => rest);
+    const dataToSave = tableValues.dataSource.map(
+      ({ key: _key, quizImageUrl: _quizImageUrl, ...rest }) => rest
+    );
     quizMutation(dataToSave, {
       onSuccess: () => {
         navigate({ to: '/contents/quizzes' });
@@ -108,9 +119,9 @@ export default function CreateQuizzes() {
 
   const columns: TableProps<CreateQuizDto>['columns'] = [
     {
-      title: '번호',
+      title: '아이디',
       dataIndex: 'key',
-      render: (_text, _record, index) => `${index + 1}`,
+      render: (_text, record) => record.key,
     },
     {
       title: '카테고리',
@@ -156,9 +167,9 @@ export default function CreateQuizzes() {
     },
     {
       title: '이미지',
-      dataIndex: 'imageFileName',
+      dataIndex: 'quizImageUrl',
       width: '10%',
-      render: (imageUrl: string, record: CreateQuizDto) => (
+      render: (imageUrl, record: CreateQuizDto) => (
         <>
           {imageUrl ? (
             <Image
@@ -175,12 +186,17 @@ export default function CreateQuizzes() {
       ),
     },
     {
+      title: '이미지 이름',
+      dataIndex: 'imageFileName',
+      render: (_, record) => record.imageFileName,
+    },
+    {
       title: '삭제',
       dataIndex: 'operation',
-      render: (_, record: { key: React.Key }) =>
+      render: (_, record) =>
         quizFormValues.length >= 1 ? (
           <Popconfirm
-            title="Sure to delete?"
+            title="정말로 삭제 하시겠습니까?"
             onConfirm={() => handleDelete(record.key)}
           >
             <a>삭제</a>
@@ -221,6 +237,7 @@ export default function CreateQuizzes() {
               }}
               bordered
               dataSource={quizFormValues}
+              rowKey="key"
               columns={columns}
               rowClassName="editable-row"
               pagination={false}
