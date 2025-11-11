@@ -6,20 +6,23 @@
  * OpenAPI spec version: 0.1
  */
 import type {
-  CreateNicknameSourceDto,
-  CreateQuizImageDto,
-  CreateQuizzesDto,
+  AvatarAdminDto,
+  CreateAvatarDto,
+  CreateNicknameSourceAdminDto,
+  CreateQuizImageAdminDto,
+  CreateQuizzesAdminDto,
   ListNicknameSourcesControllerListNicknameSourcesParams,
   ListQuizImagesControllerListQuizImagesAdminParams,
-  NicknameSourceCollectionDto,
-  NicknameSourceDto,
-  QuizCollectionDto,
-  QuizDto,
-  QuizImageCollectionDto,
-  QuizImageDto,
-  UpdateNicknameSourceDto,
-  UpdateQuizDto,
-  UpdateQuizImageDto
+  ListQuizzesControllerListQuizzesParams,
+  NicknameSourceAdminDto,
+  NicknameSourceCollectionAdminDto,
+  QuizAdminDto,
+  QuizCollectionAdminDto,
+  QuizImageAdminDto,
+  QuizImageCollectionAdminDto,
+  UpdateNicknameSourceAdminDto,
+  UpdateQuizAdminDto,
+  UpdateQuizImageAdminDto
 } from './quizzesGameIoBackend.schemas';
 
 import { orvalInstance } from '../../../shared/service/api/client/index';
@@ -27,15 +30,37 @@ import { orvalInstance } from '../../../shared/service/api/client/index';
 
 
   /**
+ * @summary 아바타 생성
+ */
+export const createAvatarControllerCreateAvatarAdmin = (
+    createAvatarDto: CreateAvatarDto,
+ ) => {const formData = new FormData();
+formData.append(`file`, createAvatarDto.file)
+if(createAvatarDto.name !== undefined) {
+ formData.append(`name`, createAvatarDto.name)
+ }
+if(createAvatarDto.description !== undefined) {
+ formData.append(`description`, createAvatarDto.description)
+ }
+
+      return orvalInstance<AvatarAdminDto>(
+      {url: `/admin/avatars`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData
+    },
+      );
+    }
+  
+/**
  * @summary 닉네임 소스 생성
  */
 export const createNicknameSourceControllerCreateNicknameSourceAdmin = (
-    createNicknameSourceDto: CreateNicknameSourceDto,
+    createNicknameSourceAdminDto: CreateNicknameSourceAdminDto,
  ) => {
-      return orvalInstance<NicknameSourceDto>(
+      return orvalInstance<NicknameSourceAdminDto>(
       {url: `/admin/nickname-sources`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: createNicknameSourceDto
+      data: createNicknameSourceAdminDto
     },
       );
     }
@@ -46,7 +71,7 @@ export const createNicknameSourceControllerCreateNicknameSourceAdmin = (
 export const listNicknameSourcesControllerListNicknameSources = (
     params?: ListNicknameSourcesControllerListNicknameSourcesParams,
  ) => {
-      return orvalInstance<NicknameSourceCollectionDto>(
+      return orvalInstance<NicknameSourceCollectionAdminDto>(
       {url: `/admin/nickname-sources`, method: 'GET',
         params
     },
@@ -71,7 +96,7 @@ export const deleteNicknameSourceControllerDeleteNicknameSource = (
 export const getNicknameSourceControllerGetNicknameSourceAdmin = (
     nicknameSourceId: string,
  ) => {
-      return orvalInstance<NicknameSourceDto>(
+      return orvalInstance<NicknameSourceAdminDto>(
       {url: `/admin/nickname-sources/${nicknameSourceId}`, method: 'GET'
     },
       );
@@ -82,12 +107,12 @@ export const getNicknameSourceControllerGetNicknameSourceAdmin = (
  */
 export const updateNicknameSourceControllerUpdateNicknameSource = (
     nicknameSourceId: string,
-    updateNicknameSourceDto: UpdateNicknameSourceDto,
+    updateNicknameSourceAdminDto: UpdateNicknameSourceAdminDto,
  ) => {
-      return orvalInstance<NicknameSourceDto>(
+      return orvalInstance<NicknameSourceAdminDto>(
       {url: `/admin/nickname-sources/${nicknameSourceId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: updateNicknameSourceDto
+      data: updateNicknameSourceAdminDto
     },
       );
     }
@@ -96,12 +121,12 @@ export const updateNicknameSourceControllerUpdateNicknameSource = (
  * @summary 퀴즈 대량 생성
  */
 export const createQuizzesControllerCreateQuizzesAdmin = (
-    createQuizzesDto: CreateQuizzesDto[],
+    createQuizzesAdminDto: CreateQuizzesAdminDto[],
  ) => {
-      return orvalInstance<QuizDto[]>(
+      return orvalInstance<QuizAdminDto[]>(
       {url: `/admin/quizzes`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
-      data: createQuizzesDto
+      data: createQuizzesAdminDto
     },
       );
     }
@@ -110,10 +135,11 @@ export const createQuizzesControllerCreateQuizzesAdmin = (
  * @summary 퀴즈 목록 조회
  */
 export const listQuizzesControllerListQuizzes = (
-    
+    params?: ListQuizzesControllerListQuizzesParams,
  ) => {
-      return orvalInstance<QuizCollectionDto>(
-      {url: `/admin/quizzes`, method: 'GET'
+      return orvalInstance<QuizCollectionAdminDto>(
+      {url: `/admin/quizzes`, method: 'GET',
+        params
     },
       );
     }
@@ -136,7 +162,7 @@ export const deleteQuizControllerDeleteQuizAdmin = (
 export const getQuizControllerGetQuizzesAdmin = (
     quizId: string,
  ) => {
-      return orvalInstance<QuizDto>(
+      return orvalInstance<QuizAdminDto>(
       {url: `/admin/quizzes/${quizId}`, method: 'GET'
     },
       );
@@ -147,12 +173,12 @@ export const getQuizControllerGetQuizzesAdmin = (
  */
 export const updateQuizControllerUpdateQuizAdmin = (
     quizId: string,
-    updateQuizDto: UpdateQuizDto,
+    updateQuizAdminDto: UpdateQuizAdminDto,
  ) => {
-      return orvalInstance<QuizDto>(
+      return orvalInstance<QuizAdminDto>(
       {url: `/admin/quizzes/${quizId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: updateQuizDto
+      data: updateQuizAdminDto
     },
       );
     }
@@ -161,15 +187,15 @@ export const updateQuizControllerUpdateQuizAdmin = (
  * @summary 퀴즈 이미지 업로드
  */
 export const createQuizImageControllerCreateQuizImageAdmin = (
-    createQuizImageDto: CreateQuizImageDto,
+    createQuizImageAdminDto: CreateQuizImageAdminDto,
  ) => {const formData = new FormData();
-formData.append(`file`, createQuizImageDto.file)
-formData.append(`category`, createQuizImageDto.category)
-if(createQuizImageDto.name !== undefined) {
- formData.append(`name`, createQuizImageDto.name)
+formData.append(`file`, createQuizImageAdminDto.file)
+formData.append(`category`, createQuizImageAdminDto.category)
+if(createQuizImageAdminDto.name !== undefined) {
+ formData.append(`name`, createQuizImageAdminDto.name)
  }
 
-      return orvalInstance<QuizImageDto>(
+      return orvalInstance<QuizImageAdminDto>(
       {url: `/admin/quiz-images`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData
@@ -183,7 +209,7 @@ if(createQuizImageDto.name !== undefined) {
 export const listQuizImagesControllerListQuizImagesAdmin = (
     params?: ListQuizImagesControllerListQuizImagesAdminParams,
  ) => {
-      return orvalInstance<QuizImageCollectionDto>(
+      return orvalInstance<QuizImageCollectionAdminDto>(
       {url: `/admin/quiz-images`, method: 'GET',
         params
     },
@@ -208,7 +234,7 @@ export const deleteQuizImageControllerDeleteQuizImage = (
 export const getQuizImageControllerGetQuizImage = (
     quizImageId: string,
  ) => {
-      return orvalInstance<QuizDto>(
+      return orvalInstance<QuizAdminDto>(
       {url: `/admin/quiz-images/${quizImageId}`, method: 'GET'
     },
       );
@@ -219,16 +245,17 @@ export const getQuizImageControllerGetQuizImage = (
  */
 export const updateQuizImageControllerUpdateQuizImage = (
     quizImageId: string,
-    updateQuizImageDto: UpdateQuizImageDto,
+    updateQuizImageAdminDto: UpdateQuizImageAdminDto,
  ) => {
-      return orvalInstance<QuizDto>(
+      return orvalInstance<QuizAdminDto>(
       {url: `/admin/quiz-images/${quizImageId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
-      data: updateQuizImageDto
+      data: updateQuizImageAdminDto
     },
       );
     }
   
+export type CreateAvatarControllerCreateAvatarAdminResult = NonNullable<Awaited<ReturnType<typeof createAvatarControllerCreateAvatarAdmin>>>
 export type CreateNicknameSourceControllerCreateNicknameSourceAdminResult = NonNullable<Awaited<ReturnType<typeof createNicknameSourceControllerCreateNicknameSourceAdmin>>>
 export type ListNicknameSourcesControllerListNicknameSourcesResult = NonNullable<Awaited<ReturnType<typeof listNicknameSourcesControllerListNicknameSources>>>
 export type DeleteNicknameSourceControllerDeleteNicknameSourceResult = NonNullable<Awaited<ReturnType<typeof deleteNicknameSourceControllerDeleteNicknameSource>>>

@@ -23,13 +23,13 @@ import Paragraph from 'antd/es/typography/Paragraph';
 import Title from 'antd/es/typography/Title';
 import { useState } from 'react';
 
-import type { UpdateQuizDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { UpdateQuizAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { queryClient } from '@/lib/queryClient';
 import { quizQueries } from '@/shared/service/query/quiz';
 
 import ImageModal from '../ImageModal';
 
-interface UpdateQuiz extends UpdateQuizDto {
+interface UpdateQuiz extends UpdateQuizAdminDto {
   quizImageUrl?: string | null;
 }
 

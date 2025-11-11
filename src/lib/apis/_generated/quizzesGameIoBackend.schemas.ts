@@ -42,6 +42,31 @@ export interface SignInWithUsernameDto {
   password: string;
 }
 
+export interface CreateAvatarDto {
+  file: Blob;
+  /** @minLength 1 */
+  name?: string;
+  /** 아바타 설명 */
+  description?: string;
+}
+
+export interface AvatarAdminDto {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  originalFileName: string;
+  avatarFileName: string;
+  avatarImageUrl: string;
+  extension: string;
+  contentType: string;
+  contentLength: number;
+  width: number;
+  height: number;
+  description?: string;
+  usageCount: number;
+}
+
 export interface CreateGameRoomDto {
   /**
    * 게임 방 제목
@@ -110,7 +135,7 @@ export interface GameRoomCollectionDto {
   data: GameRoomDto[];
 }
 
-export interface CreateNicknameSourceDto {
+export interface CreateNicknameSourceAdminDto {
   /**
    * @minLength 1
    * @maxLength 10
@@ -118,7 +143,7 @@ export interface CreateNicknameSourceDto {
   name: string;
 }
 
-export interface NicknameSourceDto {
+export interface NicknameSourceAdminDto {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -127,15 +152,15 @@ export interface NicknameSourceDto {
   fullname: string;
 }
 
-export interface NicknameSourceCollectionDto {
+export interface NicknameSourceCollectionAdminDto {
   currentPage: number;
   perPage: number;
   totalCount: number;
   totalPages: number;
-  data: NicknameSourceDto[];
+  data: NicknameSourceAdminDto[];
 }
 
-export interface UpdateNicknameSourceDto {
+export interface UpdateNicknameSourceAdminDto {
   /**
    * @minLength 1
    * @maxLength 10
@@ -143,7 +168,7 @@ export interface UpdateNicknameSourceDto {
   name?: string;
 }
 
-export interface CreateQuizzesDto {
+export interface CreateQuizzesAdminDto {
   type: string;
   answer: string;
   /** @nullable */
@@ -152,7 +177,7 @@ export interface CreateQuizzesDto {
   imageFileName: string | null;
 }
 
-export interface QuizDto {
+export interface QuizAdminDto {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -177,11 +202,11 @@ export interface QuizDto {
   imageUrl: string | null;
 }
 
-export interface QuizCollectionDto {
-  data: QuizDto[];
+export interface QuizCollectionAdminDto {
+  data: QuizAdminDto[];
 }
 
-export interface UpdateQuizDto {
+export interface UpdateQuizAdminDto {
   type?: string;
   answer?: string;
   /** @nullable */
@@ -190,7 +215,7 @@ export interface UpdateQuizDto {
   imageFileName?: string | null;
 }
 
-export interface CreateQuizImageDto {
+export interface CreateQuizImageAdminDto {
   /** quiz image file */
   file: Blob;
   /** quiz image category */
@@ -199,7 +224,7 @@ export interface CreateQuizImageDto {
   name?: string;
 }
 
-export interface QuizImageDto {
+export interface QuizImageAdminDto {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -215,15 +240,15 @@ export interface QuizImageDto {
   height: number;
 }
 
-export interface QuizImageCollectionDto {
+export interface QuizImageCollectionAdminDto {
   currentPage: number;
   perPage: number;
   totalCount: number;
   totalPages: number;
-  data: QuizImageDto[];
+  data: QuizImageAdminDto[];
 }
 
-export interface UpdateQuizImageDto {
+export interface UpdateQuizImageAdminDto {
   /** @minLength 1 */
   name?: string;
   category?: string;
