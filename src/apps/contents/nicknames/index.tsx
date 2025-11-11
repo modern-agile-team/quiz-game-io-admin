@@ -6,12 +6,12 @@ import Table from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import type { NicknameSourceDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { NicknameSourceAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { nicknameQueries } from '@/shared/service/query/nicknames';
 
 import ActionButtons from './components/ActionButtons';
 
-const columns: ColumnsType<NicknameSourceDto> = [
+const columns: ColumnsType<NicknameSourceAdminDto> = [
   {
     title: 'ID',
     dataIndex: 'id',

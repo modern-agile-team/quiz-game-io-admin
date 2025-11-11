@@ -22,7 +22,7 @@ import Paragraph from 'antd/es/typography/Paragraph';
 import Title from 'antd/es/typography/Title';
 import { useState } from 'react';
 
-import type { UpdateQuizDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { UpdateQuizAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { queryClient } from '@/lib/queryClient';
 import { quizQueries } from '@/shared/service/query/quiz';
 
@@ -31,7 +31,7 @@ import ImageModal from '../ImageModal';
 export default function EditQuiz() {
   const router = useRouter();
   const navigate = useNavigate();
-  const [form] = Form.useForm<UpdateQuizDto>();
+  const [form] = Form.useForm<UpdateQuizAdminDto>();
   const { message, modal } = useApp();
   const [formIsDirty, setFormIsDirty] = useState(false);
 
@@ -89,7 +89,7 @@ export default function EditQuiz() {
     },
   });
 
-  const onFinish = (values: UpdateQuizDto) => {
+  const onFinish = (values: UpdateQuizAdminDto) => {
     setFormIsDirty(false);
     updateQuiz({ quizId, updateQuizDto: values });
   };
@@ -138,7 +138,7 @@ export default function EditQuiz() {
 
   return (
     <div className="p-6 min-h-screen">
-      <Form<UpdateQuizDto>
+      <Form<UpdateQuizAdminDto>
         form={form}
         layout="vertical"
         onFinish={onFinish}

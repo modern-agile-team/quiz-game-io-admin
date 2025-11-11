@@ -4,13 +4,13 @@ import { Image, Table, Typography } from 'antd';
 import Column from 'antd/es/table/Column';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 
-import type { QuizDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { QuizAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { quizQueries } from '@/shared/service/query/quiz';
 
 import { TABLE } from '../constants';
 
 export default function QuizzesTable() {
-  const { data: quizzes } = useSuspenseQuery(quizQueries.getList);
+  const { data: quizzes } = useSuspenseQuery(quizQueries.getList({}));
   const navigate = useNavigate();
 
   return (
@@ -28,7 +28,7 @@ export default function QuizzesTable() {
 
       <main className="p-3">
         <section>
-          <Table<QuizDto>
+          <Table<QuizAdminDto>
             dataSource={quizzes.data}
             pagination={{
               pageSize: TABLE.PAGE_SIZE,
