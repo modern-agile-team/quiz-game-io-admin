@@ -7,21 +7,23 @@ import {
   listQuizzesControllerListQuizzes,
   updateQuizControllerUpdateQuizAdmin,
 } from '@/lib/admins/_generated/quizzesGameIoBackend';
+import type { ListQuizzesControllerListQuizzesParams } from '@/lib/admins/_generated/quizzesGameIoBackend.schemas';
 import type {
-  CreateQuizzesDto,
-  UpdateQuizDto,
+  CreateQuizzesAdminDto,
+  UpdateQuizAdminDto,
 } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 
 interface UpdateParams {
   quizId: string;
-  updateQuizDto: UpdateQuizDto;
+  updateQuizDto: UpdateQuizAdminDto;
 }
 
 export const quizQueries = {
-  getList: queryOptions({
-    queryKey: ['quiz'] as const,
-    queryFn: listQuizzesControllerListQuizzes,
-  }),
+  getList: (params: ListQuizzesControllerListQuizzesParams) =>
+    queryOptions({
+      queryKey: ['quiz'] as const,
+      queryFn: () => listQuizzesControllerListQuizzes(params),
+    }),
   getSingle: (id: string) =>
     queryOptions({
       queryKey: ['quiz', id] as const,
@@ -29,7 +31,7 @@ export const quizQueries = {
     }),
   bulkUpload: mutationOptions({
     mutationKey: ['quiz', 'create'] as const,
-    mutationFn: (createQuizzesDto: CreateQuizzesDto[]) =>
+    mutationFn: (createQuizzesDto: CreateQuizzesAdminDto[]) =>
       createQuizzesControllerCreateQuizzesAdmin(createQuizzesDto),
   }),
   singleUpdate: mutationOptions({
