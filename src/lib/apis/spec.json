@@ -398,6 +398,127 @@
         ]
       }
     },
+    "/admin/avatars": {
+      "post": {
+        "operationId": "CreateAvatarController_createAvatarAdmin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAvatarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "아바타 생성",
+        "tags": [
+          "avatar"
+        ]
+      }
+    },
     "/game-rooms": {
       "post": {
         "operationId": "CreateGameRoomController_createGameRoom",
@@ -1244,7 +1365,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateNicknameSourceDto"
+                "$ref": "#/components/schemas/CreateNicknameSourceAdminDto"
               }
             }
           }
@@ -1255,7 +1376,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NicknameSourceDto"
+                  "$ref": "#/components/schemas/NicknameSourceAdminDto"
                 }
               }
             }
@@ -1413,7 +1534,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NicknameSourceCollectionDto"
+                  "$ref": "#/components/schemas/NicknameSourceCollectionAdminDto"
                 }
               }
             }
@@ -1672,7 +1793,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NicknameSourceDto"
+                  "$ref": "#/components/schemas/NicknameSourceAdminDto"
                 }
               }
             }
@@ -1817,7 +1938,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateNicknameSourceDto"
+                "$ref": "#/components/schemas/UpdateNicknameSourceAdminDto"
               }
             }
           }
@@ -1828,7 +1949,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NicknameSourceDto"
+                  "$ref": "#/components/schemas/NicknameSourceAdminDto"
                 }
               }
             }
@@ -1996,7 +2117,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/CreateQuizzesDto"
+                  "$ref": "#/components/schemas/CreateQuizzesAdminDto"
                 }
               }
             }
@@ -2010,7 +2131,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/QuizDto"
+                    "$ref": "#/components/schemas/QuizAdminDto"
                   }
                 }
               }
@@ -2113,14 +2234,24 @@
       },
       "get": {
         "operationId": "ListQuizzesController_listQuizzes",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "imageFileName",
+            "required": false,
+            "in": "query",
+            "description": "이미지 파일 이름으로 필터링",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizCollectionDto"
+                  "$ref": "#/components/schemas/QuizCollectionAdminDto"
                 }
               }
             }
@@ -2379,7 +2510,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizDto"
+                  "$ref": "#/components/schemas/QuizAdminDto"
                 }
               }
             }
@@ -2496,7 +2627,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateQuizDto"
+                "$ref": "#/components/schemas/UpdateQuizAdminDto"
               }
             }
           }
@@ -2507,7 +2638,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizDto"
+                  "$ref": "#/components/schemas/QuizAdminDto"
                 }
               }
             }
@@ -2646,7 +2777,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateQuizImageDto"
+                "$ref": "#/components/schemas/CreateQuizImageAdminDto"
               }
             }
           }
@@ -2657,7 +2788,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizImageDto"
+                  "$ref": "#/components/schemas/QuizImageAdminDto"
                 }
               }
             }
@@ -2808,7 +2939,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizImageCollectionDto"
+                  "$ref": "#/components/schemas/QuizImageCollectionAdminDto"
                 }
               }
             }
@@ -3095,7 +3226,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizDto"
+                  "$ref": "#/components/schemas/QuizAdminDto"
                 }
               }
             }
@@ -3240,7 +3371,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateQuizImageDto"
+                "$ref": "#/components/schemas/UpdateQuizImageAdminDto"
               }
             }
           }
@@ -3251,7 +3382,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizDto"
+                  "$ref": "#/components/schemas/QuizAdminDto"
                 }
               }
             }
@@ -3520,6 +3651,91 @@
           "password"
         ]
       },
+      "CreateAvatarDto": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          },
+          "name": {
+            "type": "string",
+            "default": "originalFIleName의 확장자를 제외함",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "description": "아바타 설명"
+          }
+        },
+        "required": [
+          "file"
+        ]
+      },
+      "AvatarAdminDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "originalFileName": {
+            "type": "string"
+          },
+          "avatarFileName": {
+            "type": "string"
+          },
+          "avatarImageUrl": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "contentLength": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "usageCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "name",
+          "originalFileName",
+          "avatarFileName",
+          "avatarImageUrl",
+          "extension",
+          "contentType",
+          "contentLength",
+          "width",
+          "height",
+          "usageCount"
+        ]
+      },
       "CreateGameRoomDto": {
         "type": "object",
         "properties": {
@@ -3674,7 +3890,7 @@
           "data"
         ]
       },
-      "CreateNicknameSourceDto": {
+      "CreateNicknameSourceAdminDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -3687,7 +3903,7 @@
           "name"
         ]
       },
-      "NicknameSourceDto": {
+      "NicknameSourceAdminDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3720,7 +3936,7 @@
           "fullname"
         ]
       },
-      "NicknameSourceCollectionDto": {
+      "NicknameSourceCollectionAdminDto": {
         "type": "object",
         "properties": {
           "currentPage": {
@@ -3738,7 +3954,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NicknameSourceDto"
+              "$ref": "#/components/schemas/NicknameSourceAdminDto"
             }
           }
         },
@@ -3750,7 +3966,7 @@
           "data"
         ]
       },
-      "UpdateNicknameSourceDto": {
+      "UpdateNicknameSourceAdminDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -3760,7 +3976,7 @@
           }
         }
       },
-      "CreateQuizzesDto": {
+      "CreateQuizzesAdminDto": {
         "type": "object",
         "properties": {
           "type": {
@@ -3785,7 +4001,7 @@
           "imageFileName"
         ]
       },
-      "QuizDto": {
+      "QuizAdminDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3838,13 +4054,13 @@
           "imageUrl"
         ]
       },
-      "QuizCollectionDto": {
+      "QuizCollectionAdminDto": {
         "type": "object",
         "properties": {
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/QuizDto"
+              "$ref": "#/components/schemas/QuizAdminDto"
             }
           }
         },
@@ -3852,7 +4068,7 @@
           "data"
         ]
       },
-      "UpdateQuizDto": {
+      "UpdateQuizAdminDto": {
         "type": "object",
         "properties": {
           "type": {
@@ -3871,7 +4087,7 @@
           }
         }
       },
-      "CreateQuizImageDto": {
+      "CreateQuizImageAdminDto": {
         "type": "object",
         "properties": {
           "file": {
@@ -3894,7 +4110,7 @@
           "category"
         ]
       },
-      "QuizImageDto": {
+      "QuizImageAdminDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -3955,7 +4171,7 @@
           "height"
         ]
       },
-      "QuizImageCollectionDto": {
+      "QuizImageCollectionAdminDto": {
         "type": "object",
         "properties": {
           "currentPage": {
@@ -3973,7 +4189,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/QuizImageDto"
+              "$ref": "#/components/schemas/QuizImageAdminDto"
             }
           }
         },
@@ -3985,7 +4201,7 @@
           "data"
         ]
       },
-      "UpdateQuizImageDto": {
+      "UpdateQuizImageAdminDto": {
         "type": "object",
         "properties": {
           "name": {
