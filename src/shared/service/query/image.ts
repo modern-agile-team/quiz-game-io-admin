@@ -6,7 +6,7 @@ import {
   listQuizImagesControllerListQuizImagesAdmin,
   updateQuizImageControllerUpdateQuizImage,
 } from '@/lib/admins/_generated/quizzesGameIoBackend';
-import type { UpdateQuizImageDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { UpdateQuizImageAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 
 export const imageQueries = {
   uploadImage: mutationOptions({
@@ -21,7 +21,7 @@ export const imageQueries = {
       updateQuizImageDto,
     }: {
       quizImageId: string;
-      updateQuizImageDto: UpdateQuizImageDto;
+      updateQuizImageDto: UpdateQuizImageAdminDto;
     }) =>
       updateQuizImageControllerUpdateQuizImage(quizImageId, updateQuizImageDto),
   }),

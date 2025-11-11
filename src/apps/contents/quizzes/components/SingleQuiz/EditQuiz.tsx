@@ -94,7 +94,7 @@ export default function EditQuiz() {
   });
 
   const onFinish = (values: UpdateQuiz) => {
-    const updateQuizDto: UpdateQuizDto = {
+    const updateQuizDto: UpdateQuizAdminDto = {
       answer: values.answer,
       question: values.question,
       type: values.type,

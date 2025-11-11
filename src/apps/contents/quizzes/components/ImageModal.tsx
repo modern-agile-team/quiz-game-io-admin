@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Col, Flex, Image, Pagination, Row } from 'antd';
 import { useState } from 'react';
 
-import type { QuizImageDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import type { QuizImageAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { imageQueries } from '@/shared/service/query/image';
 
 interface ImageGalleryProps {
   onSelect: (
-    image: Pick<QuizImageDto, 'quizImageUrl' | 'quizImageFileName'>
+    image: Pick<QuizImageAdminDto, 'quizImageUrl' | 'quizImageFileName'>
   ) => void;
 }
 
