@@ -52,7 +52,6 @@ export default function SingleQuiz() {
             수정
           </Button>
         }
-        bordered={false}
         className="shadow-md"
       >
         <div className="flex flex-col md:flex-row gap-8">

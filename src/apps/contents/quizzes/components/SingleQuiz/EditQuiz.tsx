@@ -14,7 +14,6 @@ import {
   Select,
   Skeleton,
   Space,
-  Typography,
 } from 'antd';
 import useApp from 'antd/es/app/useApp';
 import Input from 'antd/es/input/Input';
@@ -109,8 +108,11 @@ export default function EditQuiz() {
       title: '이미지 선택',
       content: (
         <ImageModal
-          onSelect={({ quizImageUrl }) => {
-            form.setFieldsValue({ quizImageUrl });
+          onSelect={({ quizImageUrl, quizImageFileName }) => {
+            form.setFieldsValue({
+              quizImageUrl,
+              imageFileName: quizImageFileName,
+            });
             setFormIsDirty(true);
             modalInstance.destroy();
           }}
@@ -179,6 +181,9 @@ export default function EditQuiz() {
             </div>
           }
         >
+          <Form.Item name="imageFileName" hidden>
+            <Input />
+          </Form.Item>
           <div className="flex flex-col md:flex-row gap-8">
             <Form.Item
               name="quizImageUrl"
@@ -193,11 +198,6 @@ export default function EditQuiz() {
                       alt="퀴즈 이미지"
                       className="rounded-lg shadow-sm"
                     />
-                    <Form.Item name="imageFileName">
-                      <Typography className="w-48 truncate text-ellipsis">
-                        {quiz.imageFileName}
-                      </Typography>
-                    </Form.Item>
                   </div>
                 ) : (
                   <div
