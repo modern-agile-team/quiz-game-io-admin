@@ -2,10 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { Col, Flex, Image, Pagination, Row } from 'antd';
 import { useState } from 'react';
 
+import type { QuizImageAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 import { imageQueries } from '@/shared/service/query/image';
 
 interface ImageGalleryProps {
-  onSelect: (imageUrl: string) => void;
+  onSelect: (
+    image: Pick<QuizImageAdminDto, 'quizImageUrl' | 'quizImageFileName'>
+  ) => void;
 }
 
 const MAX_PAGE = 30;
@@ -38,7 +41,7 @@ export default function ImageModal({ onSelect }: ImageGalleryProps) {
                 cursor: 'pointer',
                 borderRadius: 16,
               }}
-              onClick={() => onSelect(image.quizImageUrl)}
+              onClick={() => onSelect(image)}
               preview={false}
             />
           </Col>

@@ -20,7 +20,7 @@ const SelectBox = ({
 }: Omit<EditableCellProps, 'children' | 'inputType' | 'rowIndex'>) => (
   <Select
     autoFocus
-    defaultValue={record[dataIndex] ?? undefined}
+    defaultValue={record[dataIndex]}
     style={{ width: '100%', minWidth: '120px' }}
     onChange={(value) => onSave(record.key, dataIndex, value)}
     options={[

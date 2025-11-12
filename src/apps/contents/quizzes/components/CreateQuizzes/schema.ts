@@ -2,4 +2,5 @@ import type { CreateQuizzesAdminDto } from '@/lib/apis/_generated/quizzesGameIoB
 
 export interface CreateQuizDto extends CreateQuizzesAdminDto {
   key: string;
+  quizImageUrl: string;
 }
