@@ -1,16 +1,21 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Image, Table, Typography } from 'antd';
 import Column from 'antd/es/table/Column';
 import ColumnGroup from 'antd/es/table/ColumnGroup';
 
 import type { QuizAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
+import { imageQueries } from '@/shared/service/query/image';
 import { quizQueries } from '@/shared/service/query/quiz';
 
 import { TABLE } from '../constants';
 
 export default function QuizzesTable() {
-  const { data: quizzes } = useSuspenseQuery(quizQueries.getList({}));
+  const { imageId } = useSearch({ from: '/(menus)/contents/quizzes/' });
+  const { data: image } = useSuspenseQuery(imageQueries.getSingle(imageId));
+  const { data: quizzes } = useSuspenseQuery({
+    ...quizQueries.getList({ imageFileName: image.quizImageFileName! }),
+  });
   const navigate = useNavigate();
 
   return (

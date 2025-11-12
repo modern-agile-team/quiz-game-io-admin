@@ -3,6 +3,7 @@ import { mutationOptions, queryOptions } from '@tanstack/react-query';
 import {
   createQuizImageControllerCreateQuizImageAdmin,
   deleteQuizImageControllerDeleteQuizImage,
+  getQuizImageControllerGetQuizImage,
   listQuizImagesControllerListQuizImagesAdmin,
   updateQuizImageControllerUpdateQuizImage,
 } from '@/lib/admins/_generated/quizzesGameIoBackend';
@@ -31,5 +32,11 @@ export const imageQueries = {
     queryOptions({
       queryKey: ['admin', 'images', 'list', params] as const,
       queryFn: () => listQuizImagesControllerListQuizImagesAdmin(params),
+    }),
+  getSingle: (imageId?: string) =>
+    queryOptions({
+      queryKey: ['admin', 'image', imageId] as const,
+      queryFn: () => getQuizImageControllerGetQuizImage(imageId!),
+      enabled: !!imageId,
     }),
 };

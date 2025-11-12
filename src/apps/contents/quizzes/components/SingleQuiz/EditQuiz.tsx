@@ -84,7 +84,7 @@ export default function EditQuiz() {
       queryClient.invalidateQueries({
         queryKey: quizQueries.singleDelete.mutationKey,
       });
-      navigate({ to: '/contents/quizzes' });
+      navigate({ to: '/contents/quizzes', search: { imageId: '' } });
       message.success('퀴즈가 성공적으로 삭제되었습니다.');
     },
     onError: () => {
@@ -125,7 +125,7 @@ export default function EditQuiz() {
     });
   };
 
-  const imageUrlValue = Form.useWatch('quizImageUrl', form);
+  const imageUrlValue = Form.useWatch('quizImageUrl', form) ?? quiz?.imageUrl;
 
   if (isLoading) {
     return (
