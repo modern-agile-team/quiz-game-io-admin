@@ -29,7 +29,8 @@ import type {
   UpdateAvatarAdminDto,
   UpdateNicknameSourceAdminDto,
   UpdateQuizAdminDto,
-  UpdateQuizImageAdminDto
+  UpdateQuizImageAdminDto,
+  UpdateSoundEffectAdminDto
 } from './quizzesGameIoBackend.schemas';
 
 import { orvalInstance } from '../../../shared/service/api/client/index';
@@ -349,6 +350,21 @@ export const getSoundEffectControllerGetSoundEffect = (
       );
     }
   
+/**
+ * @summary 효과음 수정
+ */
+export const updateSoundEffectControllerUpdateSoundEffectAdmin = (
+    soundEffectId: string,
+    updateSoundEffectAdminDto: UpdateSoundEffectAdminDto,
+ ) => {
+      return orvalInstance<SoundEffectAdminDto>(
+      {url: `/admin/sound-effects/${soundEffectId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateSoundEffectAdminDto
+    },
+      );
+    }
+  
 export type CreateAvatarControllerCreateAvatarAdminResult = NonNullable<Awaited<ReturnType<typeof createAvatarControllerCreateAvatarAdmin>>>
 export type ListAvatarsControllerListAvatarsResult = NonNullable<Awaited<ReturnType<typeof listAvatarsControllerListAvatars>>>
 export type GetAvatarControllerGetAvatarResult = NonNullable<Awaited<ReturnType<typeof getAvatarControllerGetAvatar>>>
@@ -371,3 +387,4 @@ export type UpdateQuizImageControllerUpdateQuizImageAdminResult = NonNullable<Aw
 export type CreateSoundEffectControllerCreateSoundEffectAdminResult = NonNullable<Awaited<ReturnType<typeof createSoundEffectControllerCreateSoundEffectAdmin>>>
 export type ListSoundEffectsControllerListSoundEffectsAdminResult = NonNullable<Awaited<ReturnType<typeof listSoundEffectsControllerListSoundEffectsAdmin>>>
 export type GetSoundEffectControllerGetSoundEffectResult = NonNullable<Awaited<ReturnType<typeof getSoundEffectControllerGetSoundEffect>>>
+export type UpdateSoundEffectControllerUpdateSoundEffectAdminResult = NonNullable<Awaited<ReturnType<typeof updateSoundEffectControllerUpdateSoundEffectAdmin>>>

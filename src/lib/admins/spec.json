@@ -3008,6 +3008,157 @@
         "tags": [
           "sound-effect"
         ]
+      },
+      "patch": {
+        "operationId": "UpdateSoundEffectController_updateSoundEffectAdmin",
+        "parameters": [
+          {
+            "name": "soundEffectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSoundEffectAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoundEffectAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "SOUND_EFFECT.NOT_FOUND",
+                      "enum": [
+                        "SOUND_EFFECT.NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "효과음 수정",
+        "tags": [
+          "sound-effect"
+        ]
       }
     }
   },
@@ -3065,6 +3216,12 @@
           "nickname": {
             "type": "string"
           },
+          "avatarFileName": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
           "enteredAt": {
             "format": "date-time",
             "type": "string",
@@ -3085,6 +3242,8 @@
           "role",
           "signInType",
           "nickname",
+          "avatarFileName",
+          "avatarUrl",
           "enteredAt",
           "leftAt",
           "isActive"
@@ -3819,7 +3978,8 @@
             "type": "number"
           },
           "description": {
-            "type": "string"
+            "type": "object",
+            "nullable": true
           }
         },
         "required": [
@@ -3832,7 +3992,8 @@
           "soundEffectUrl",
           "extension",
           "contentType",
-          "contentLength"
+          "contentLength",
+          "description"
         ]
       },
       "SoundEffectCollectionAdminDto": {
@@ -3864,6 +4025,19 @@
           "totalPages",
           "data"
         ]
+      },
+      "UpdateSoundEffectAdminDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       }
     }
   },

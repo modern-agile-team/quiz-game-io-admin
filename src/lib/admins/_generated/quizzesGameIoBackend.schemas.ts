@@ -14,6 +14,8 @@ export interface AccountDto {
   /** Account sign in type */
   signInType: string;
   nickname: string;
+  avatarFileName: string;
+  avatarUrl: string;
   /** 진입 시점 */
   enteredAt: string;
   leftAt: string;
@@ -282,6 +284,11 @@ export interface CreateSoundEffectDto {
   description?: string;
 }
 
+/**
+ * @nullable
+ */
+export type SoundEffectAdminDtoDescription = { [key: string]: unknown } | null;
+
 export interface SoundEffectAdminDto {
   id: string;
   createdAt: string;
@@ -293,7 +300,8 @@ export interface SoundEffectAdminDto {
   extension: string;
   contentType: string;
   contentLength: number;
-  description?: string;
+  /** @nullable */
+  description: SoundEffectAdminDtoDescription;
 }
 
 export interface SoundEffectCollectionAdminDto {
@@ -302,6 +310,13 @@ export interface SoundEffectCollectionAdminDto {
   totalCount: number;
   totalPages: number;
   data: SoundEffectAdminDto[];
+}
+
+export interface UpdateSoundEffectAdminDto {
+  /** @minLength 1 */
+  name?: string;
+  /** @nullable */
+  description?: string | null;
 }
 
 /**
@@ -1972,5 +1987,85 @@ export type GetSoundEffectControllerGetSoundEffect404 = {
   message?: string;
   /** error code */
   code?: GetSoundEffectControllerGetSoundEffect404Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin400Code = typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin400Code[keyof typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateSoundEffectControllerUpdateSoundEffectAdmin400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateSoundEffectControllerUpdateSoundEffectAdmin400Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin401Code = typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin401Code[keyof typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateSoundEffectControllerUpdateSoundEffectAdmin401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateSoundEffectControllerUpdateSoundEffectAdmin401Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin403Code = typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin403Code[keyof typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateSoundEffectControllerUpdateSoundEffectAdmin403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateSoundEffectControllerUpdateSoundEffectAdmin403Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin404Code = typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin404Code[keyof typeof UpdateSoundEffectControllerUpdateSoundEffectAdmin404Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateSoundEffectControllerUpdateSoundEffectAdmin404Code = {
+  SOUND_EFFECTNOT_FOUND: 'SOUND_EFFECT.NOT_FOUND',
+} as const;
+
+export type UpdateSoundEffectControllerUpdateSoundEffectAdmin404 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateSoundEffectControllerUpdateSoundEffectAdmin404Code;
 };
 

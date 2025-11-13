@@ -14,6 +14,8 @@ export interface AccountDto {
   /** Account sign in type */
   signInType: string;
   nickname: string;
+  avatarFileName: string;
+  avatarUrl: string;
   /** 진입 시점 */
   enteredAt: string;
   leftAt: string;
@@ -282,6 +284,11 @@ export interface CreateSoundEffectDto {
   description?: string;
 }
 
+/**
+ * @nullable
+ */
+export type SoundEffectAdminDtoDescription = { [key: string]: unknown } | null;
+
 export interface SoundEffectAdminDto {
   id: string;
   createdAt: string;
@@ -293,7 +300,8 @@ export interface SoundEffectAdminDto {
   extension: string;
   contentType: string;
   contentLength: number;
-  description?: string;
+  /** @nullable */
+  description: SoundEffectAdminDtoDescription;
 }
 
 export interface SoundEffectCollectionAdminDto {
@@ -302,6 +310,13 @@ export interface SoundEffectCollectionAdminDto {
   totalCount: number;
   totalPages: number;
   data: SoundEffectAdminDto[];
+}
+
+export interface UpdateSoundEffectAdminDto {
+  /** @minLength 1 */
+  name?: string;
+  /** @nullable */
+  description?: string | null;
 }
 
 export type SignInWithGoogleControllerSignInWithGoogleParams = {
