@@ -50,6 +50,11 @@ export interface CreateAvatarDto {
   description?: string;
 }
 
+/**
+ * @nullable
+ */
+export type AvatarAdminDtoDescription = { [key: string]: unknown } | null;
+
 export interface AvatarAdminDto {
   id: string;
   createdAt: string;
@@ -63,8 +68,16 @@ export interface AvatarAdminDto {
   contentLength: number;
   width: number;
   height: number;
-  description?: string;
+  /** @nullable */
+  description: AvatarAdminDtoDescription;
   usageCount: number;
+}
+
+export interface UpdateAvatarAdminDto {
+  /** @minLength 1 */
+  name?: string;
+  /** @nullable */
+  description?: string | null;
 }
 
 export interface CreateGameRoomDto {
@@ -254,6 +267,35 @@ export interface UpdateQuizImageAdminDto {
   category?: string;
 }
 
+export interface CreateSoundEffectDto {
+  file: Blob;
+  /** @minLength 1 */
+  name?: string;
+  description?: string;
+}
+
+export interface SoundEffectAdminDto {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  originalFileName: string;
+  soundEffectFileName: string;
+  soundEffectUrl: string;
+  extension: string;
+  contentType: string;
+  contentLength: number;
+  description?: string;
+}
+
+export interface SoundEffectCollectionAdminDto {
+  currentPage: number;
+  perPage: number;
+  totalCount: number;
+  totalPages: number;
+  data: SoundEffectAdminDto[];
+}
+
 /**
  * error code
  */
@@ -312,6 +354,86 @@ export type CreateAvatarControllerCreateAvatarAdmin403 = {
   message?: string;
   /** error code */
   code?: CreateAvatarControllerCreateAvatarAdmin403Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateAvatarControllerUpdateAvatar400Code = typeof UpdateAvatarControllerUpdateAvatar400Code[keyof typeof UpdateAvatarControllerUpdateAvatar400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateAvatarControllerUpdateAvatar400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type UpdateAvatarControllerUpdateAvatar400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateAvatarControllerUpdateAvatar400Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateAvatarControllerUpdateAvatar401Code = typeof UpdateAvatarControllerUpdateAvatar401Code[keyof typeof UpdateAvatarControllerUpdateAvatar401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateAvatarControllerUpdateAvatar401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type UpdateAvatarControllerUpdateAvatar401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateAvatarControllerUpdateAvatar401Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateAvatarControllerUpdateAvatar403Code = typeof UpdateAvatarControllerUpdateAvatar403Code[keyof typeof UpdateAvatarControllerUpdateAvatar403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateAvatarControllerUpdateAvatar403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type UpdateAvatarControllerUpdateAvatar403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateAvatarControllerUpdateAvatar403Code;
+};
+
+/**
+ * error code
+ */
+export type UpdateAvatarControllerUpdateAvatar404Code = typeof UpdateAvatarControllerUpdateAvatar404Code[keyof typeof UpdateAvatarControllerUpdateAvatar404Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateAvatarControllerUpdateAvatar404Code = {
+  AVATARNOT_FOUND: 'AVATAR.NOT_FOUND',
+} as const;
+
+export type UpdateAvatarControllerUpdateAvatar404 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: UpdateAvatarControllerUpdateAvatar404Code;
 };
 
 /**
@@ -1403,80 +1525,212 @@ export type GetQuizImageControllerGetQuizImage404 = {
 /**
  * error code
  */
-export type UpdateQuizImageControllerUpdateQuizImage400Code = typeof UpdateQuizImageControllerUpdateQuizImage400Code[keyof typeof UpdateQuizImageControllerUpdateQuizImage400Code];
+export type UpdateQuizImageControllerUpdateQuizImageAdmin400Code = typeof UpdateQuizImageControllerUpdateQuizImageAdmin400Code[keyof typeof UpdateQuizImageControllerUpdateQuizImageAdmin400Code];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UpdateQuizImageControllerUpdateQuizImage400Code = {
+export const UpdateQuizImageControllerUpdateQuizImageAdmin400Code = {
   COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
 } as const;
 
-export type UpdateQuizImageControllerUpdateQuizImage400 = {
+export type UpdateQuizImageControllerUpdateQuizImageAdmin400 = {
   /** http status code */
   statusCode?: number;
   /** error message */
   message?: string;
   /** error code */
-  code?: UpdateQuizImageControllerUpdateQuizImage400Code;
+  code?: UpdateQuizImageControllerUpdateQuizImageAdmin400Code;
 };
 
 /**
  * error code
  */
-export type UpdateQuizImageControllerUpdateQuizImage401Code = typeof UpdateQuizImageControllerUpdateQuizImage401Code[keyof typeof UpdateQuizImageControllerUpdateQuizImage401Code];
+export type UpdateQuizImageControllerUpdateQuizImageAdmin401Code = typeof UpdateQuizImageControllerUpdateQuizImageAdmin401Code[keyof typeof UpdateQuizImageControllerUpdateQuizImageAdmin401Code];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UpdateQuizImageControllerUpdateQuizImage401Code = {
+export const UpdateQuizImageControllerUpdateQuizImageAdmin401Code = {
   COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
 } as const;
 
-export type UpdateQuizImageControllerUpdateQuizImage401 = {
+export type UpdateQuizImageControllerUpdateQuizImageAdmin401 = {
   /** http status code */
   statusCode?: number;
   /** error message */
   message?: string;
   /** error code */
-  code?: UpdateQuizImageControllerUpdateQuizImage401Code;
+  code?: UpdateQuizImageControllerUpdateQuizImageAdmin401Code;
 };
 
 /**
  * error code
  */
-export type UpdateQuizImageControllerUpdateQuizImage403Code = typeof UpdateQuizImageControllerUpdateQuizImage403Code[keyof typeof UpdateQuizImageControllerUpdateQuizImage403Code];
+export type UpdateQuizImageControllerUpdateQuizImageAdmin403Code = typeof UpdateQuizImageControllerUpdateQuizImageAdmin403Code[keyof typeof UpdateQuizImageControllerUpdateQuizImageAdmin403Code];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UpdateQuizImageControllerUpdateQuizImage403Code = {
+export const UpdateQuizImageControllerUpdateQuizImageAdmin403Code = {
   COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
 } as const;
 
-export type UpdateQuizImageControllerUpdateQuizImage403 = {
+export type UpdateQuizImageControllerUpdateQuizImageAdmin403 = {
   /** http status code */
   statusCode?: number;
   /** error message */
   message?: string;
   /** error code */
-  code?: UpdateQuizImageControllerUpdateQuizImage403Code;
+  code?: UpdateQuizImageControllerUpdateQuizImageAdmin403Code;
 };
 
 /**
  * error code
  */
-export type UpdateQuizImageControllerUpdateQuizImage404Code = typeof UpdateQuizImageControllerUpdateQuizImage404Code[keyof typeof UpdateQuizImageControllerUpdateQuizImage404Code];
+export type UpdateQuizImageControllerUpdateQuizImageAdmin404Code = typeof UpdateQuizImageControllerUpdateQuizImageAdmin404Code[keyof typeof UpdateQuizImageControllerUpdateQuizImageAdmin404Code];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UpdateQuizImageControllerUpdateQuizImage404Code = {
+export const UpdateQuizImageControllerUpdateQuizImageAdmin404Code = {
   QUIZ_IMAGENOT_FOUND: 'QUIZ_IMAGE.NOT_FOUND',
 } as const;
 
-export type UpdateQuizImageControllerUpdateQuizImage404 = {
+export type UpdateQuizImageControllerUpdateQuizImageAdmin404 = {
   /** http status code */
   statusCode?: number;
   /** error message */
   message?: string;
   /** error code */
-  code?: UpdateQuizImageControllerUpdateQuizImage404Code;
+  code?: UpdateQuizImageControllerUpdateQuizImageAdmin404Code;
+};
+
+/**
+ * error code
+ */
+export type CreateSoundEffectControllerCreateSoundEffectAdmin400Code = typeof CreateSoundEffectControllerCreateSoundEffectAdmin400Code[keyof typeof CreateSoundEffectControllerCreateSoundEffectAdmin400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateSoundEffectControllerCreateSoundEffectAdmin400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type CreateSoundEffectControllerCreateSoundEffectAdmin400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: CreateSoundEffectControllerCreateSoundEffectAdmin400Code;
+};
+
+/**
+ * error code
+ */
+export type CreateSoundEffectControllerCreateSoundEffectAdmin401Code = typeof CreateSoundEffectControllerCreateSoundEffectAdmin401Code[keyof typeof CreateSoundEffectControllerCreateSoundEffectAdmin401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateSoundEffectControllerCreateSoundEffectAdmin401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type CreateSoundEffectControllerCreateSoundEffectAdmin401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: CreateSoundEffectControllerCreateSoundEffectAdmin401Code;
+};
+
+/**
+ * error code
+ */
+export type CreateSoundEffectControllerCreateSoundEffectAdmin403Code = typeof CreateSoundEffectControllerCreateSoundEffectAdmin403Code[keyof typeof CreateSoundEffectControllerCreateSoundEffectAdmin403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateSoundEffectControllerCreateSoundEffectAdmin403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type CreateSoundEffectControllerCreateSoundEffectAdmin403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: CreateSoundEffectControllerCreateSoundEffectAdmin403Code;
+};
+
+export type ListSoundEffectsControllerListSoundEffectsAdminParams = {
+/**
+ * @minimum 1
+ */
+page?: number;
+/**
+ * @minimum 5
+ * @maximum 1000
+ */
+perPage?: number;
+};
+
+/**
+ * error code
+ */
+export type ListSoundEffectsControllerListSoundEffectsAdmin400Code = typeof ListSoundEffectsControllerListSoundEffectsAdmin400Code[keyof typeof ListSoundEffectsControllerListSoundEffectsAdmin400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListSoundEffectsControllerListSoundEffectsAdmin400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type ListSoundEffectsControllerListSoundEffectsAdmin400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListSoundEffectsControllerListSoundEffectsAdmin400Code;
+};
+
+/**
+ * error code
+ */
+export type ListSoundEffectsControllerListSoundEffectsAdmin401Code = typeof ListSoundEffectsControllerListSoundEffectsAdmin401Code[keyof typeof ListSoundEffectsControllerListSoundEffectsAdmin401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListSoundEffectsControllerListSoundEffectsAdmin401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type ListSoundEffectsControllerListSoundEffectsAdmin401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListSoundEffectsControllerListSoundEffectsAdmin401Code;
+};
+
+/**
+ * error code
+ */
+export type ListSoundEffectsControllerListSoundEffectsAdmin403Code = typeof ListSoundEffectsControllerListSoundEffectsAdmin403Code[keyof typeof ListSoundEffectsControllerListSoundEffectsAdmin403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListSoundEffectsControllerListSoundEffectsAdmin403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type ListSoundEffectsControllerListSoundEffectsAdmin403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListSoundEffectsControllerListSoundEffectsAdmin403Code;
 };
 

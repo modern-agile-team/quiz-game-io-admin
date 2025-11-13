@@ -11,15 +11,20 @@ import type {
   CreateNicknameSourceAdminDto,
   CreateQuizImageAdminDto,
   CreateQuizzesAdminDto,
+  CreateSoundEffectDto,
   ListNicknameSourcesControllerListNicknameSourcesParams,
   ListQuizImagesControllerListQuizImagesAdminParams,
   ListQuizzesControllerListQuizzesParams,
+  ListSoundEffectsControllerListSoundEffectsAdminParams,
   NicknameSourceAdminDto,
   NicknameSourceCollectionAdminDto,
   QuizAdminDto,
   QuizCollectionAdminDto,
   QuizImageAdminDto,
   QuizImageCollectionAdminDto,
+  SoundEffectAdminDto,
+  SoundEffectCollectionAdminDto,
+  UpdateAvatarAdminDto,
   UpdateNicknameSourceAdminDto,
   UpdateQuizAdminDto,
   UpdateQuizImageAdminDto
@@ -47,6 +52,21 @@ if(createAvatarDto.description !== undefined) {
       {url: `/admin/avatars`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData
+    },
+      );
+    }
+  
+/**
+ * @summary 아바타 수정
+ */
+export const updateAvatarControllerUpdateAvatar = (
+    avatarId: string,
+    updateAvatarAdminDto: UpdateAvatarAdminDto,
+ ) => {
+      return orvalInstance<AvatarAdminDto>(
+      {url: `/admin/avatars/${avatarId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateAvatarAdminDto
     },
       );
     }
@@ -234,7 +254,7 @@ export const deleteQuizImageControllerDeleteQuizImage = (
 export const getQuizImageControllerGetQuizImage = (
     quizImageId: string,
  ) => {
-      return orvalInstance<QuizAdminDto>(
+      return orvalInstance<QuizImageAdminDto>(
       {url: `/admin/quiz-images/${quizImageId}`, method: 'GET'
     },
       );
@@ -243,11 +263,11 @@ export const getQuizImageControllerGetQuizImage = (
 /**
  * @summary 퀴즈 이미지 수정
  */
-export const updateQuizImageControllerUpdateQuizImage = (
+export const updateQuizImageControllerUpdateQuizImageAdmin = (
     quizImageId: string,
     updateQuizImageAdminDto: UpdateQuizImageAdminDto,
  ) => {
-      return orvalInstance<QuizAdminDto>(
+      return orvalInstance<QuizImageAdminDto>(
       {url: `/admin/quiz-images/${quizImageId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: updateQuizImageAdminDto
@@ -255,7 +275,43 @@ export const updateQuizImageControllerUpdateQuizImage = (
       );
     }
   
+/**
+ * @summary 효과음 생성
+ */
+export const createSoundEffectControllerCreateSoundEffectAdmin = (
+    createSoundEffectDto: CreateSoundEffectDto,
+ ) => {const formData = new FormData();
+formData.append(`file`, createSoundEffectDto.file)
+if(createSoundEffectDto.name !== undefined) {
+ formData.append(`name`, createSoundEffectDto.name)
+ }
+if(createSoundEffectDto.description !== undefined) {
+ formData.append(`description`, createSoundEffectDto.description)
+ }
+
+      return orvalInstance<SoundEffectAdminDto>(
+      {url: `/admin/sound-effects`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData
+    },
+      );
+    }
+  
+/**
+ * @summary 효과음 리스트 조회
+ */
+export const listSoundEffectsControllerListSoundEffectsAdmin = (
+    params?: ListSoundEffectsControllerListSoundEffectsAdminParams,
+ ) => {
+      return orvalInstance<SoundEffectCollectionAdminDto>(
+      {url: `/admin/sound-effects`, method: 'GET',
+        params
+    },
+      );
+    }
+  
 export type CreateAvatarControllerCreateAvatarAdminResult = NonNullable<Awaited<ReturnType<typeof createAvatarControllerCreateAvatarAdmin>>>
+export type UpdateAvatarControllerUpdateAvatarResult = NonNullable<Awaited<ReturnType<typeof updateAvatarControllerUpdateAvatar>>>
 export type CreateNicknameSourceControllerCreateNicknameSourceAdminResult = NonNullable<Awaited<ReturnType<typeof createNicknameSourceControllerCreateNicknameSourceAdmin>>>
 export type ListNicknameSourcesControllerListNicknameSourcesResult = NonNullable<Awaited<ReturnType<typeof listNicknameSourcesControllerListNicknameSources>>>
 export type DeleteNicknameSourceControllerDeleteNicknameSourceResult = NonNullable<Awaited<ReturnType<typeof deleteNicknameSourceControllerDeleteNicknameSource>>>
@@ -270,4 +326,6 @@ export type CreateQuizImageControllerCreateQuizImageAdminResult = NonNullable<Aw
 export type ListQuizImagesControllerListQuizImagesAdminResult = NonNullable<Awaited<ReturnType<typeof listQuizImagesControllerListQuizImagesAdmin>>>
 export type DeleteQuizImageControllerDeleteQuizImageResult = NonNullable<Awaited<ReturnType<typeof deleteQuizImageControllerDeleteQuizImage>>>
 export type GetQuizImageControllerGetQuizImageResult = NonNullable<Awaited<ReturnType<typeof getQuizImageControllerGetQuizImage>>>
-export type UpdateQuizImageControllerUpdateQuizImageResult = NonNullable<Awaited<ReturnType<typeof updateQuizImageControllerUpdateQuizImage>>>
+export type UpdateQuizImageControllerUpdateQuizImageAdminResult = NonNullable<Awaited<ReturnType<typeof updateQuizImageControllerUpdateQuizImageAdmin>>>
+export type CreateSoundEffectControllerCreateSoundEffectAdminResult = NonNullable<Awaited<ReturnType<typeof createSoundEffectControllerCreateSoundEffectAdmin>>>
+export type ListSoundEffectsControllerListSoundEffectsAdminResult = NonNullable<Awaited<ReturnType<typeof listSoundEffectsControllerListSoundEffectsAdmin>>>
