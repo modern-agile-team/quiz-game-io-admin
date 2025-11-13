@@ -73,11 +73,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "내 계정 조회",
         "tags": [
           "account"
@@ -100,11 +95,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "활성 유저 수 조회",
         "tags": [
           "account"
@@ -200,6 +190,9 @@
             "description": ""
           }
         },
+        "security": [
+          {}
+        ],
         "summary": "구글 회원가입 로그인",
         "tags": [
           "auth"
@@ -296,6 +289,9 @@
             }
           }
         },
+        "security": [
+          {}
+        ],
         "summary": "username 기반 회원가입",
         "tags": [
           "auth"
@@ -392,6 +388,9 @@
             }
           }
         },
+        "security": [
+          {}
+        ],
         "summary": "username 기반 로그인",
         "tags": [
           "auth"
@@ -517,6 +516,425 @@
         "tags": [
           "avatar"
         ]
+      },
+      "get": {
+        "operationId": "ListAvatarsController_listAvatars",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 5,
+              "maximum": 1000,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarCollectionAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "아바타 리스트 조회",
+        "tags": [
+          "avatar"
+        ]
+      }
+    },
+    "/admin/avatars/{avatarId}": {
+      "get": {
+        "operationId": "GetAvatarController_getAvatar",
+        "parameters": [
+          {
+            "name": "avatarId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "AVATAR.NOT_FOUND",
+                      "enum": [
+                        "AVATAR.NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "아바타 조회",
+        "tags": [
+          "avatar"
+        ]
+      },
+      "patch": {
+        "operationId": "UpdateAvatarController_updateAvatar",
+        "parameters": [
+          {
+            "name": "avatarId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAvatarAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "AVATAR.NOT_FOUND",
+                      "enum": [
+                        "AVATAR.NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "아바타 수정",
+        "tags": [
+          "avatar"
+        ]
       }
     },
     "/game-rooms": {
@@ -629,11 +1047,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임 방 생성",
         "tags": [
           "game-room"
@@ -782,14 +1195,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          },
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임 방 상세 조회",
         "tags": [
           "game-room"
@@ -962,11 +1367,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임 방 입장",
         "tags": [
           "room-member"
@@ -1076,11 +1476,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임 방 퇴장",
         "tags": [
           "room-member"
@@ -1224,11 +1619,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임방 유저 목록 조회",
         "tags": [
           "game-room"
@@ -1345,11 +1735,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "게임 시작 요청",
         "tags": [
           "game-room"
@@ -1494,11 +1879,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "닉네임 소스 생성",
         "tags": [
           "nickname-source"
@@ -1624,11 +2004,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "닉네임 소스 리스트 조회",
         "tags": [
           "nickname-source"
@@ -1765,11 +2140,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "닉네임 소스 삭제",
         "tags": [
           "nickname-source"
@@ -1911,11 +2281,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "닉네임 소스 조회",
         "tags": [
           "nickname-source"
@@ -2095,11 +2460,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "닉네임 소스 수정",
         "tags": [
           "nickname-source"
@@ -2222,11 +2582,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 대량 생성",
         "tags": [
           "quiz"
@@ -2341,11 +2696,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 목록 조회",
         "tags": [
           "quiz"
@@ -2482,11 +2832,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 삭제",
         "tags": [
           "quiz"
@@ -2600,11 +2945,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 단일 조회",
         "tags": [
           "quiz"
@@ -2757,11 +3097,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 수정",
         "tags": [
           "quiz"
@@ -2878,11 +3213,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 이미지 업로드",
         "tags": [
           "quiz-image"
@@ -3029,11 +3359,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 이미지 리스트 조회",
         "tags": [
           "quiz-image"
@@ -3198,11 +3523,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 이미지 제거",
         "tags": [
           "quiz-image"
@@ -3226,7 +3546,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizAdminDto"
+                  "$ref": "#/components/schemas/QuizImageAdminDto"
                 }
               }
             }
@@ -3344,18 +3664,13 @@
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
         "summary": "퀴즈 이미지 단건 조회",
         "tags": [
           "quiz-image"
         ]
       },
       "patch": {
-        "operationId": "UpdateQuizImageController_updateQuizImage",
+        "operationId": "UpdateQuizImageController_updateQuizImageAdmin",
         "parameters": [
           {
             "name": "quizImageId",
@@ -3382,7 +3697,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QuizAdminDto"
+                  "$ref": "#/components/schemas/QuizImageAdminDto"
                 }
               }
             }
@@ -3500,14 +3815,549 @@
             }
           }
         },
+        "summary": "퀴즈 이미지 수정",
+        "tags": [
+          "quiz-image"
+        ]
+      }
+    },
+    "/admin/sound-effects": {
+      "post": {
+        "operationId": "CreateSoundEffectController_createSoundEffectAdmin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSoundEffectDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoundEffectAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "security": [
           {
             "bearer": []
           }
         ],
-        "summary": "퀴즈 이미지 수정",
+        "summary": "효과음 생성",
         "tags": [
-          "quiz-image"
+          "sound-effect"
+        ]
+      },
+      "get": {
+        "operationId": "ListSoundEffectsController_listSoundEffectsAdmin",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 5,
+              "maximum": 1000,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoundEffectCollectionAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "효과음 리스트 조회",
+        "tags": [
+          "sound-effect"
+        ]
+      }
+    },
+    "/admin/sound-effects/{soundEffectId}": {
+      "get": {
+        "operationId": "GetSoundEffectController_getSoundEffect",
+        "parameters": [
+          {
+            "name": "soundEffectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoundEffectAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "SOUND_EFFECT.NOT_FOUND",
+                      "enum": [
+                        "SOUND_EFFECT.NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "효과음 단일 조회",
+        "tags": [
+          "sound-effect"
+        ]
+      },
+      "patch": {
+        "operationId": "UpdateSoundEffectController_updateSoundEffectAdmin",
+        "parameters": [
+          {
+            "name": "soundEffectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSoundEffectAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoundEffectAdminDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.REQUEST_VALIDATION_ERROR",
+                      "enum": [
+                        "COMMON.REQUEST_VALIDATION_ERROR"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.UNAUTHORIZED",
+                      "enum": [
+                        "COMMON.UNAUTHORIZED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "COMMON.PERMISSION_DENIED",
+                      "enum": [
+                        "COMMON.PERMISSION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "format": "integer",
+                      "description": "http status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "error message"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "error code",
+                      "example": "SOUND_EFFECT.NOT_FOUND",
+                      "enum": [
+                        "SOUND_EFFECT.NOT_FOUND"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "효과음 수정",
+        "tags": [
+          "sound-effect"
         ]
       }
     }
@@ -3530,6 +4380,12 @@
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "type": "http"
+      },
+      "cookie-auth": {
+        "type": "http",
+        "in": "header",
+        "name": "cookie",
+        "description": "Access token stored in cookies"
       }
     },
     "schemas": {
@@ -3560,6 +4416,12 @@
           "nickname": {
             "type": "string"
           },
+          "avatarFileName": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
           "enteredAt": {
             "format": "date-time",
             "type": "string",
@@ -3580,6 +4442,8 @@
           "role",
           "signInType",
           "nickname",
+          "avatarFileName",
+          "avatarUrl",
           "enteredAt",
           "leftAt",
           "isActive"
@@ -3714,7 +4578,8 @@
             "type": "number"
           },
           "description": {
-            "type": "string"
+            "type": "object",
+            "nullable": true
           },
           "usageCount": {
             "type": "number"
@@ -3733,8 +4598,52 @@
           "contentLength",
           "width",
           "height",
+          "description",
           "usageCount"
         ]
+      },
+      "AvatarCollectionAdminDto": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number"
+          },
+          "perPage": {
+            "type": "number"
+          },
+          "totalCount": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AvatarAdminDto"
+            }
+          }
+        },
+        "required": [
+          "currentPage",
+          "perPage",
+          "totalCount",
+          "totalPages",
+          "data"
+        ]
+      },
+      "UpdateAvatarAdminDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       },
       "CreateGameRoomDto": {
         "type": "object",
@@ -4212,7 +5121,130 @@
             "type": "string"
           }
         }
+      },
+      "CreateSoundEffectDto": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          },
+          "name": {
+            "type": "string",
+            "default": "originalFileName의 확장자를 제외함",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ]
+      },
+      "SoundEffectAdminDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "originalFileName": {
+            "type": "string"
+          },
+          "soundEffectFileName": {
+            "type": "string"
+          },
+          "soundEffectUrl": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "contentLength": {
+            "type": "number"
+          },
+          "description": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "name",
+          "originalFileName",
+          "soundEffectFileName",
+          "soundEffectUrl",
+          "extension",
+          "contentType",
+          "contentLength",
+          "description"
+        ]
+      },
+      "SoundEffectCollectionAdminDto": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number"
+          },
+          "perPage": {
+            "type": "number"
+          },
+          "totalCount": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SoundEffectAdminDto"
+            }
+          }
+        },
+        "required": [
+          "currentPage",
+          "perPage",
+          "totalCount",
+          "totalPages",
+          "data"
+        ]
+      },
+      "UpdateSoundEffectAdminDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "bearer": [],
+      "cookie-auth": []
+    }
+  ]
 }
