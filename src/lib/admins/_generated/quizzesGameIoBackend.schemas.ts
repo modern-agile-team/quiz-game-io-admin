@@ -73,6 +73,14 @@ export interface AvatarAdminDto {
   usageCount: number;
 }
 
+export interface AvatarCollectionAdminDto {
+  currentPage: number;
+  perPage: number;
+  totalCount: number;
+  totalPages: number;
+  data: AvatarAdminDto[];
+}
+
 export interface UpdateAvatarAdminDto {
   /** @minLength 1 */
   name?: string;
@@ -354,6 +362,158 @@ export type CreateAvatarControllerCreateAvatarAdmin403 = {
   message?: string;
   /** error code */
   code?: CreateAvatarControllerCreateAvatarAdmin403Code;
+};
+
+export type ListAvatarsControllerListAvatarsParams = {
+/**
+ * @minimum 1
+ */
+page?: number;
+/**
+ * @minimum 5
+ * @maximum 1000
+ */
+perPage?: number;
+};
+
+/**
+ * error code
+ */
+export type ListAvatarsControllerListAvatars400Code = typeof ListAvatarsControllerListAvatars400Code[keyof typeof ListAvatarsControllerListAvatars400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListAvatarsControllerListAvatars400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type ListAvatarsControllerListAvatars400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListAvatarsControllerListAvatars400Code;
+};
+
+/**
+ * error code
+ */
+export type ListAvatarsControllerListAvatars401Code = typeof ListAvatarsControllerListAvatars401Code[keyof typeof ListAvatarsControllerListAvatars401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListAvatarsControllerListAvatars401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type ListAvatarsControllerListAvatars401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListAvatarsControllerListAvatars401Code;
+};
+
+/**
+ * error code
+ */
+export type ListAvatarsControllerListAvatars403Code = typeof ListAvatarsControllerListAvatars403Code[keyof typeof ListAvatarsControllerListAvatars403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ListAvatarsControllerListAvatars403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type ListAvatarsControllerListAvatars403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: ListAvatarsControllerListAvatars403Code;
+};
+
+/**
+ * error code
+ */
+export type GetAvatarControllerGetAvatar400Code = typeof GetAvatarControllerGetAvatar400Code[keyof typeof GetAvatarControllerGetAvatar400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetAvatarControllerGetAvatar400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type GetAvatarControllerGetAvatar400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetAvatarControllerGetAvatar400Code;
+};
+
+/**
+ * error code
+ */
+export type GetAvatarControllerGetAvatar401Code = typeof GetAvatarControllerGetAvatar401Code[keyof typeof GetAvatarControllerGetAvatar401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetAvatarControllerGetAvatar401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type GetAvatarControllerGetAvatar401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetAvatarControllerGetAvatar401Code;
+};
+
+/**
+ * error code
+ */
+export type GetAvatarControllerGetAvatar403Code = typeof GetAvatarControllerGetAvatar403Code[keyof typeof GetAvatarControllerGetAvatar403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetAvatarControllerGetAvatar403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type GetAvatarControllerGetAvatar403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetAvatarControllerGetAvatar403Code;
+};
+
+/**
+ * error code
+ */
+export type GetAvatarControllerGetAvatar404Code = typeof GetAvatarControllerGetAvatar404Code[keyof typeof GetAvatarControllerGetAvatar404Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetAvatarControllerGetAvatar404Code = {
+  AVATARNOT_FOUND: 'AVATAR.NOT_FOUND',
+} as const;
+
+export type GetAvatarControllerGetAvatar404 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetAvatarControllerGetAvatar404Code;
 };
 
 /**
@@ -1732,5 +1892,85 @@ export type ListSoundEffectsControllerListSoundEffectsAdmin403 = {
   message?: string;
   /** error code */
   code?: ListSoundEffectsControllerListSoundEffectsAdmin403Code;
+};
+
+/**
+ * error code
+ */
+export type GetSoundEffectControllerGetSoundEffect400Code = typeof GetSoundEffectControllerGetSoundEffect400Code[keyof typeof GetSoundEffectControllerGetSoundEffect400Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetSoundEffectControllerGetSoundEffect400Code = {
+  COMMONREQUEST_VALIDATION_ERROR: 'COMMON.REQUEST_VALIDATION_ERROR',
+} as const;
+
+export type GetSoundEffectControllerGetSoundEffect400 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetSoundEffectControllerGetSoundEffect400Code;
+};
+
+/**
+ * error code
+ */
+export type GetSoundEffectControllerGetSoundEffect401Code = typeof GetSoundEffectControllerGetSoundEffect401Code[keyof typeof GetSoundEffectControllerGetSoundEffect401Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetSoundEffectControllerGetSoundEffect401Code = {
+  COMMONUNAUTHORIZED: 'COMMON.UNAUTHORIZED',
+} as const;
+
+export type GetSoundEffectControllerGetSoundEffect401 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetSoundEffectControllerGetSoundEffect401Code;
+};
+
+/**
+ * error code
+ */
+export type GetSoundEffectControllerGetSoundEffect403Code = typeof GetSoundEffectControllerGetSoundEffect403Code[keyof typeof GetSoundEffectControllerGetSoundEffect403Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetSoundEffectControllerGetSoundEffect403Code = {
+  COMMONPERMISSION_DENIED: 'COMMON.PERMISSION_DENIED',
+} as const;
+
+export type GetSoundEffectControllerGetSoundEffect403 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetSoundEffectControllerGetSoundEffect403Code;
+};
+
+/**
+ * error code
+ */
+export type GetSoundEffectControllerGetSoundEffect404Code = typeof GetSoundEffectControllerGetSoundEffect404Code[keyof typeof GetSoundEffectControllerGetSoundEffect404Code];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetSoundEffectControllerGetSoundEffect404Code = {
+  SOUND_EFFECTNOT_FOUND: 'SOUND_EFFECT.NOT_FOUND',
+} as const;
+
+export type GetSoundEffectControllerGetSoundEffect404 = {
+  /** http status code */
+  statusCode?: number;
+  /** error message */
+  message?: string;
+  /** error code */
+  code?: GetSoundEffectControllerGetSoundEffect404Code;
 };
 

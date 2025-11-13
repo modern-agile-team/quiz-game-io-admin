@@ -73,6 +73,14 @@ export interface AvatarAdminDto {
   usageCount: number;
 }
 
+export interface AvatarCollectionAdminDto {
+  currentPage: number;
+  perPage: number;
+  totalCount: number;
+  totalPages: number;
+  data: AvatarAdminDto[];
+}
+
 export interface UpdateAvatarAdminDto {
   /** @minLength 1 */
   name?: string;

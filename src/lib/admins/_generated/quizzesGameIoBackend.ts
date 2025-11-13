@@ -7,11 +7,13 @@
  */
 import type {
   AvatarAdminDto,
+  AvatarCollectionAdminDto,
   CreateAvatarDto,
   CreateNicknameSourceAdminDto,
   CreateQuizImageAdminDto,
   CreateQuizzesAdminDto,
   CreateSoundEffectDto,
+  ListAvatarsControllerListAvatarsParams,
   ListNicknameSourcesControllerListNicknameSourcesParams,
   ListQuizImagesControllerListQuizImagesAdminParams,
   ListQuizzesControllerListQuizzesParams,
@@ -52,6 +54,31 @@ if(createAvatarDto.description !== undefined) {
       {url: `/admin/avatars`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData
+    },
+      );
+    }
+  
+/**
+ * @summary 아바타 리스트 조회
+ */
+export const listAvatarsControllerListAvatars = (
+    params?: ListAvatarsControllerListAvatarsParams,
+ ) => {
+      return orvalInstance<AvatarCollectionAdminDto>(
+      {url: `/admin/avatars`, method: 'GET',
+        params
+    },
+      );
+    }
+  
+/**
+ * @summary 아바타 조회
+ */
+export const getAvatarControllerGetAvatar = (
+    avatarId: string,
+ ) => {
+      return orvalInstance<AvatarAdminDto>(
+      {url: `/admin/avatars/${avatarId}`, method: 'GET'
     },
       );
     }
@@ -310,7 +337,21 @@ export const listSoundEffectsControllerListSoundEffectsAdmin = (
       );
     }
   
+/**
+ * @summary 효과음 단일 조회
+ */
+export const getSoundEffectControllerGetSoundEffect = (
+    soundEffectId: string,
+ ) => {
+      return orvalInstance<SoundEffectAdminDto>(
+      {url: `/admin/sound-effects/${soundEffectId}`, method: 'GET'
+    },
+      );
+    }
+  
 export type CreateAvatarControllerCreateAvatarAdminResult = NonNullable<Awaited<ReturnType<typeof createAvatarControllerCreateAvatarAdmin>>>
+export type ListAvatarsControllerListAvatarsResult = NonNullable<Awaited<ReturnType<typeof listAvatarsControllerListAvatars>>>
+export type GetAvatarControllerGetAvatarResult = NonNullable<Awaited<ReturnType<typeof getAvatarControllerGetAvatar>>>
 export type UpdateAvatarControllerUpdateAvatarResult = NonNullable<Awaited<ReturnType<typeof updateAvatarControllerUpdateAvatar>>>
 export type CreateNicknameSourceControllerCreateNicknameSourceAdminResult = NonNullable<Awaited<ReturnType<typeof createNicknameSourceControllerCreateNicknameSourceAdmin>>>
 export type ListNicknameSourcesControllerListNicknameSourcesResult = NonNullable<Awaited<ReturnType<typeof listNicknameSourcesControllerListNicknameSources>>>
@@ -329,3 +370,4 @@ export type GetQuizImageControllerGetQuizImageResult = NonNullable<Awaited<Retur
 export type UpdateQuizImageControllerUpdateQuizImageAdminResult = NonNullable<Awaited<ReturnType<typeof updateQuizImageControllerUpdateQuizImageAdmin>>>
 export type CreateSoundEffectControllerCreateSoundEffectAdminResult = NonNullable<Awaited<ReturnType<typeof createSoundEffectControllerCreateSoundEffectAdmin>>>
 export type ListSoundEffectsControllerListSoundEffectsAdminResult = NonNullable<Awaited<ReturnType<typeof listSoundEffectsControllerListSoundEffectsAdmin>>>
+export type GetSoundEffectControllerGetSoundEffectResult = NonNullable<Awaited<ReturnType<typeof getSoundEffectControllerGetSoundEffect>>>
