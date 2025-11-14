@@ -14,6 +14,8 @@ export interface AccountDto {
   /** Account sign in type */
   signInType: string;
   nickname: string;
+  avatarFileName: string;
+  avatarUrl: string;
   /** 진입 시점 */
   enteredAt: string;
   leftAt: string;
@@ -50,6 +52,11 @@ export interface CreateAvatarDto {
   description?: string;
 }
 
+/**
+ * @nullable
+ */
+export type AvatarAdminDtoDescription = { [key: string]: unknown } | null;
+
 export interface AvatarAdminDto {
   id: string;
   createdAt: string;
@@ -63,8 +70,24 @@ export interface AvatarAdminDto {
   contentLength: number;
   width: number;
   height: number;
-  description?: string;
+  /** @nullable */
+  description: AvatarAdminDtoDescription;
   usageCount: number;
+}
+
+export interface AvatarCollectionAdminDto {
+  currentPage: number;
+  perPage: number;
+  totalCount: number;
+  totalPages: number;
+  data: AvatarAdminDto[];
+}
+
+export interface UpdateAvatarAdminDto {
+  /** @minLength 1 */
+  name?: string;
+  /** @nullable */
+  description?: string | null;
 }
 
 export interface CreateGameRoomDto {
@@ -252,6 +275,48 @@ export interface UpdateQuizImageAdminDto {
   /** @minLength 1 */
   name?: string;
   category?: string;
+}
+
+export interface CreateSoundEffectDto {
+  file: Blob;
+  /** @minLength 1 */
+  name?: string;
+  description?: string;
+}
+
+/**
+ * @nullable
+ */
+export type SoundEffectAdminDtoDescription = { [key: string]: unknown } | null;
+
+export interface SoundEffectAdminDto {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  originalFileName: string;
+  soundEffectFileName: string;
+  soundEffectUrl: string;
+  extension: string;
+  contentType: string;
+  contentLength: number;
+  /** @nullable */
+  description: SoundEffectAdminDtoDescription;
+}
+
+export interface SoundEffectCollectionAdminDto {
+  currentPage: number;
+  perPage: number;
+  totalCount: number;
+  totalPages: number;
+  data: SoundEffectAdminDto[];
+}
+
+export interface UpdateSoundEffectAdminDto {
+  /** @minLength 1 */
+  name?: string;
+  /** @nullable */
+  description?: string | null;
 }
 
 export type SignInWithGoogleControllerSignInWithGoogleParams = {

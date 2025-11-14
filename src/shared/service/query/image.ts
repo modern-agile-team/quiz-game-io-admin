@@ -5,7 +5,7 @@ import {
   deleteQuizImageControllerDeleteQuizImage,
   getQuizImageControllerGetQuizImage,
   listQuizImagesControllerListQuizImagesAdmin,
-  updateQuizImageControllerUpdateQuizImage,
+  updateQuizImageControllerUpdateQuizImageAdmin,
 } from '@/lib/admins/_generated/quizzesGameIoBackend';
 import type { UpdateQuizImageAdminDto } from '@/lib/apis/_generated/quizzesGameIoBackend.schemas';
 
@@ -24,7 +24,10 @@ export const imageQueries = {
       quizImageId: string;
       updateQuizImageDto: UpdateQuizImageAdminDto;
     }) =>
-      updateQuizImageControllerUpdateQuizImage(quizImageId, updateQuizImageDto),
+      updateQuizImageControllerUpdateQuizImageAdmin(
+        quizImageId,
+        updateQuizImageDto
+      ),
   }),
   getList: (
     params: Parameters<typeof listQuizImagesControllerListQuizImagesAdmin>[0]
