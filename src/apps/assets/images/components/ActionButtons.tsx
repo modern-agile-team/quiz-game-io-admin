@@ -4,6 +4,7 @@ import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Alert, App, Button, Select } from 'antd';
 import { overlay } from 'overlay-kit';
 
+import type { ApiErrorResponse } from '@/shared/service/api/client/apiError';
 import { imageQueries } from '@/shared/service/query/image';
 
 import ImageUploadModal from './ImageUploadModal';
@@ -19,7 +20,7 @@ export default function ActionButtons({
   onRemoveImages,
 }: Props) {
   const queryClient = useQueryClient();
-  const { message, modal } = App.useApp();
+  const { message, modal, notification } = App.useApp();
 
   const { page, sortBy, orderBy } = useSearch({
     from: '/(menus)/assets/images/',
@@ -67,8 +68,28 @@ export default function ActionButtons({
           selectedImageIds.map((id) => removeImage(id.toString()))
         );
         message.success('이미지를 삭제했어요.');
-      } catch {
-        message.error('삭제 중 오류가 발생했어요.');
+      } catch (error) {
+        if ((error as ApiErrorResponse).message === 'quiz image is in used') {
+          notification.info({
+            message: '참조중인 퀴즈가 존재합니다.',
+            description: '참조중인 퀴즈를 확인하러 가시겠습니까?',
+            placement: 'top',
+            btn: (
+              <Button
+                onClick={() =>
+                  navigate({
+                    to: '/contents/quizzes',
+                    search: { imageId: selectedImageIds[0] },
+                  })
+                }
+              >
+                확인
+              </Button>
+            ),
+          });
+        } else {
+          message.error('삭제 중 오류가 발생했어요.');
+        }
       }
       onRemoveImages();
     }

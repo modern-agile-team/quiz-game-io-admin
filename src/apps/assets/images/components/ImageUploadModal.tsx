@@ -58,7 +58,6 @@ export default function ImageUploadModal({ isOpen, onClose }: Props) {
       cancelText="취소"
       onOk={handleOk}
       onCancel={handleCancel}
-      destroyOnClose
     >
       <Form
         form={form}

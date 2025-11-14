@@ -104,7 +104,7 @@ export default function CreateQuizzes() {
     );
     quizMutation(dataToSave, {
       onSuccess: () => {
-        navigate({ to: '/contents/quizzes' });
+        navigate({ to: '/contents/quizzes', search: { imageId: '' } });
       },
       onError: () => {
         notification.info({

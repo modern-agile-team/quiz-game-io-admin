@@ -21,7 +21,7 @@ interface UpdateParams {
 export const quizQueries = {
   getList: (params: ListQuizzesControllerListQuizzesParams) =>
     queryOptions({
-      queryKey: ['quiz'] as const,
+      queryKey: ['quiz', params] as const,
       queryFn: () => listQuizzesControllerListQuizzes(params),
     }),
   getSingle: (id: string) =>
