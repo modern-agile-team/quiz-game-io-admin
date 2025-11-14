@@ -16,6 +16,7 @@ import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index'
 import { Route as menusContentsQuizzesIndexRouteImport } from './routes/(menus)/contents/quizzes/index'
 import { Route as menusContentsNicknamesIndexRouteImport } from './routes/(menus)/contents/nicknames/index'
 import { Route as menusAssetsImagesIndexRouteImport } from './routes/(menus)/assets/images/index'
+import { Route as menusAssetsAvatarsIndexRouteImport } from './routes/(menus)/assets/avatars/index'
 import { Route as menusContentsNicknamesCreateRouteImport } from './routes/(menus)/contents/nicknames/create'
 import { Route as menusContentsQuizzesEditIndexRouteImport } from './routes/(menus)/contents/quizzes/edit/index'
 import { Route as menusContentsQuizzesCreateIndexRouteImport } from './routes/(menus)/contents/quizzes/create/index'
@@ -57,6 +58,11 @@ const menusAssetsImagesIndexRoute = menusAssetsImagesIndexRouteImport.update({
   path: '/assets/images/',
   getParentRoute: () => menusRouteRoute,
 } as any)
+const menusAssetsAvatarsIndexRoute = menusAssetsAvatarsIndexRouteImport.update({
+  id: '/assets/avatars/',
+  path: '/assets/avatars/',
+  getParentRoute: () => menusRouteRoute,
+} as any)
 const menusContentsNicknamesCreateRoute =
   menusContentsNicknamesCreateRouteImport.update({
     id: '/contents/nicknames/create',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/': typeof menusRouteRouteWithChildren
   '/login': typeof authLoginIndexRoute
   '/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
+  '/assets/avatars': typeof menusAssetsAvatarsIndexRoute
   '/assets/images': typeof menusAssetsImagesIndexRoute
   '/contents/nicknames': typeof menusContentsNicknamesIndexRoute
   '/contents/quizzes': typeof menusContentsQuizzesIndexRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/': typeof menusRouteRouteWithChildren
   '/login': typeof authLoginIndexRoute
   '/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
+  '/assets/avatars': typeof menusAssetsAvatarsIndexRoute
   '/assets/images': typeof menusAssetsImagesIndexRoute
   '/contents/nicknames': typeof menusContentsNicknamesIndexRoute
   '/contents/quizzes': typeof menusContentsQuizzesIndexRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/(menus)': typeof menusRouteRouteWithChildren
   '/(auth)/login/': typeof authLoginIndexRoute
   '/(menus)/contents/nicknames/create': typeof menusContentsNicknamesCreateRoute
+  '/(menus)/assets/avatars/': typeof menusAssetsAvatarsIndexRoute
   '/(menus)/assets/images/': typeof menusAssetsImagesIndexRoute
   '/(menus)/contents/nicknames/': typeof menusContentsNicknamesIndexRoute
   '/(menus)/contents/quizzes/': typeof menusContentsQuizzesIndexRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/contents/nicknames/create'
+    | '/assets/avatars'
     | '/assets/images'
     | '/contents/nicknames'
     | '/contents/quizzes'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/contents/nicknames/create'
+    | '/assets/avatars'
     | '/assets/images'
     | '/contents/nicknames'
     | '/contents/quizzes'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/(menus)'
     | '/(auth)/login/'
     | '/(menus)/contents/nicknames/create'
+    | '/(menus)/assets/avatars/'
     | '/(menus)/assets/images/'
     | '/(menus)/contents/nicknames/'
     | '/(menus)/contents/quizzes/'
@@ -225,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof menusAssetsImagesIndexRouteImport
       parentRoute: typeof menusRouteRoute
     }
+    '/(menus)/assets/avatars/': {
+      id: '/(menus)/assets/avatars/'
+      path: '/assets/avatars'
+      fullPath: '/assets/avatars'
+      preLoaderRoute: typeof menusAssetsAvatarsIndexRouteImport
+      parentRoute: typeof menusRouteRoute
+    }
     '/(menus)/contents/nicknames/create': {
       id: '/(menus)/contents/nicknames/create'
       path: '/contents/nicknames/create'
@@ -277,6 +296,7 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 
 interface menusRouteRouteChildren {
   menusContentsNicknamesCreateRoute: typeof menusContentsNicknamesCreateRoute
+  menusAssetsAvatarsIndexRoute: typeof menusAssetsAvatarsIndexRoute
   menusAssetsImagesIndexRoute: typeof menusAssetsImagesIndexRoute
   menusContentsNicknamesIndexRoute: typeof menusContentsNicknamesIndexRoute
   menusContentsQuizzesIndexRoute: typeof menusContentsQuizzesIndexRoute
@@ -288,6 +308,7 @@ interface menusRouteRouteChildren {
 
 const menusRouteRouteChildren: menusRouteRouteChildren = {
   menusContentsNicknamesCreateRoute: menusContentsNicknamesCreateRoute,
+  menusAssetsAvatarsIndexRoute: menusAssetsAvatarsIndexRoute,
   menusAssetsImagesIndexRoute: menusAssetsImagesIndexRoute,
   menusContentsNicknamesIndexRoute: menusContentsNicknamesIndexRoute,
   menusContentsQuizzesIndexRoute: menusContentsQuizzesIndexRoute,
