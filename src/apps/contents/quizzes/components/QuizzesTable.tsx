@@ -14,7 +14,7 @@ export default function QuizzesTable() {
   const { imageId } = useSearch({ from: '/(menus)/contents/quizzes/' });
   const { data: image } = useSuspenseQuery(imageQueries.getSingle(imageId));
   const { data: quizzes } = useSuspenseQuery({
-    ...quizQueries.getList({ imageFileName: image.imageFileName! }),
+    ...quizQueries.getList({ imageFileName: image.quizImageFileName }),
   });
   const navigate = useNavigate();
 
